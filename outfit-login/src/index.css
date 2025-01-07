@@ -1,13 +1,82 @@
+/* ページ全体の設定 */
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  padding: 0;
+  background-color: #ffffff; /* 背景色を白に設定 */
+  font-family: 'Arial', sans-serif;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+/* アプリ全体の配置 */
+.App {
+  text-align: center;
+  padding: 40px;
+}
+
+/* ロゴ部分のスタイル */
+.logo-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 60px;
+  margin-bottom: 10px;
+}
+
+.subtitle {
+  font-size: 20px;
+  margin-bottom: 30px;
+}
+
+/* 入力フォームのスタイル */
+.form-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+}
+
+.input-field {
+  width: 300px;
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+}
+
+/* パスワード入力欄のアイコン */
+.password-input {
+  position: relative;
+}
+
+.password-input i {
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+
+/* 送信ボタンのスタイル */
+.submit-btn {
+  background-color: black;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.submit-btn:hover {
+  background-color: #555;
+}
+
+/* 下部アイコン一覧のスタイル */
+.icons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 40px;
+}
+
+.icon {
+  width: 50px;
+  height: 50px;
+  border-radius: 5px;
+  object-fit: cover; /* 画像を比率を保って中央にフィット */
 }
