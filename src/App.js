@@ -1,25 +1,44 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  useNavigate,
+  useLocation,
+} from "react-router-dom";
+import Start from "./pages/Start";
+import About from "./pages/About";
+import Header from "./components/Header";
+import Footer from "./components/Footer";
 
-function App() {
+const Layout = ({ children }) => {
+  const location = useLocation();
+
+  // Home 以外のページで Header と Footer を表示
+  const hideHeaderFooter = location.pathname === "/";
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      {!hideHeaderFooter && <Header />}
+      <main>{children}</main>
+      {!hideHeaderFooter && <Footer />}
     </div>
   );
-}
+};
+
+// App Component
+const App = () => {
+  return (
+    <Router>
+      <Layout>
+        {/* ページごとのルーティング */}
+        <Routes>
+          <Route path="/" element={<Start />} />
+          <Route path="/about" element={<About />} />
+        </Routes>
+      </Layout>
+    </Router>
+  );
+};
 
 export default App;
