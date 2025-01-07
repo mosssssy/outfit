@@ -1,25 +1,27 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import bottoms from "../components/BottomsList"; // bottoms用のデータ
-import tops from "../components/TopsList"; // tops用のデータ
-import shoes from "../components/ShoesList"; // shoes用のデータ
-import hairs from "../components/HairsList"; // hairs用のデータ
+import { useNavigate, useLocation } from "react-router-dom";
+import bottoms from "../components/BottomsList";
+import tops from "../components/TopsList";
+import shoes from "../components/ShoesList";
+import hairs from "../components/HairsList";
 
 function FashionSelector() {
   const navigate = useNavigate();
+  const location = useLocation();
 
-  const [selectedImages, setSelectedImages] = useState({
-    hairs: null,
-    tops: null,
-    bottoms: null,
-    shoes: null,
-  });
+  const [selectedImages, setSelectedImages] = useState(
+    location.state?.selectedImages || {
+      hairs: null,
+      tops: null,
+      bottoms: null,
+      shoes: null,
+    }
+  );
   const [activeTab, setActiveTab] = useState("hairs");
-  const [error, setError] = useState(""); // バリデーションエラーメッセージ用
+  const [error, setError] = useState("");
 
-  const modelImage = "/assets/model_01.png"; // モデル用の画像（背面に固定）
+  const modelImage = "/assets/model_01.png";
 
-  // タブごとのデータを切り替え
   const getTabContent = () => {
     switch (activeTab) {
       case "hairs":
@@ -35,27 +37,26 @@ function FashionSelector() {
     }
   };
 
-  // 画像を選択時にカテゴリごとに置換
   const handleImageClick = (imageSrc) => {
     setSelectedImages((prev) => ({
       ...prev,
-      [activeTab]: imageSrc, // 現在のタブのカテゴリ画像を置換
+      [activeTab]: imageSrc,
     }));
   };
 
   const handleNextPage = () => {
-    // 全てのカテゴリが選択されているかチェック
     const isValid = Object.values(selectedImages).every((src) => src !== null);
-
     if (isValid) {
-      navigate("/SelectColor"); // ページ遷移
+      navigate("/SelectColor", { state: { selectedImages } }); // 選択した画像を渡して遷移
     } else {
       setError("全てのカテゴリで画像を選択してください。");
     }
   };
 
   return (
-    <>
+    <div
+      style={{ display: "flex", flexDirection: "column", alignItems: "center" }}
+    >
       <div style={{ display: "flex" }}>
         {/* 左側：選択した画像 */}
         <div
@@ -77,7 +78,7 @@ function FashionSelector() {
               left: "0",
               width: "360px",
               height: "640px",
-              zIndex: 0, // 常に最背面
+              zIndex: 0,
             }}
           />
 
@@ -94,7 +95,7 @@ function FashionSelector() {
                   left: "0",
                   width: "360px",
                   height: "640px",
-                  zIndex: index + 1, // モデル画像の上に表示
+                  zIndex: index + 1,
                 }}
               />
             ) : null
@@ -105,55 +106,21 @@ function FashionSelector() {
         <div>
           {/* タブ部分 */}
           <div style={{ marginBottom: "20px" }}>
-            <button
-              onClick={() => setActiveTab("hairs")}
-              style={{
-                padding: "10px",
-                marginRight: "10px",
-                backgroundColor: activeTab === "hairs" ? "lightblue" : "white",
-                border: "1px solid #ccc",
-                cursor: "pointer",
-              }}
-            >
-              Hair
-            </button>
-            <button
-              onClick={() => setActiveTab("tops")}
-              style={{
-                padding: "10px",
-                marginRight: "10px",
-                backgroundColor: activeTab === "tops" ? "lightblue" : "white",
-                border: "1px solid #ccc",
-                cursor: "pointer",
-              }}
-            >
-              Tops
-            </button>
-            <button
-              onClick={() => setActiveTab("bottoms")}
-              style={{
-                padding: "10px",
-                marginRight: "10px",
-                backgroundColor:
-                  activeTab === "bottoms" ? "lightblue" : "white",
-                border: "1px solid #ccc",
-                cursor: "pointer",
-              }}
-            >
-              Bottoms
-            </button>
-            <button
-              onClick={() => setActiveTab("shoes")}
-              style={{
-                padding: "10px",
-                marginRight: "10px",
-                backgroundColor: activeTab === "shoes" ? "lightblue" : "white",
-                border: "1px solid #ccc",
-                cursor: "pointer",
-              }}
-            >
-              Shoes
-            </button>
+            {["hairs", "tops", "bottoms", "shoes"].map((tab) => (
+              <button
+                key={tab}
+                onClick={() => setActiveTab(tab)}
+                style={{
+                  padding: "10px",
+                  marginRight: "10px",
+                  backgroundColor: activeTab === tab ? "lightblue" : "white",
+                  border: "1px solid #ccc",
+                  cursor: "pointer",
+                }}
+              >
+                {tab.charAt(0).toUpperCase() + tab.slice(1)}
+              </button>
+            ))}
           </div>
 
           {/* 画像リスト */}
@@ -168,6 +135,10 @@ function FashionSelector() {
                   height: "320px",
                   marginBottom: "10px",
                   cursor: "pointer",
+                  border:
+                    selectedImages[activeTab] === item.src
+                      ? "4px solid black"
+                      : "none", // 選択された画像に枠線を追加
                 }}
                 onClick={() => handleImageClick(item.src)}
               />
@@ -183,7 +154,7 @@ function FashionSelector() {
         </p>
       )}
 
-      {/* SelectColor画面への遷移 */}
+      {/* ページ遷移ボタン */}
       <div style={{ textAlign: "center", marginTop: "50px" }}>
         <button
           onClick={handleNextPage}
@@ -192,7 +163,7 @@ function FashionSelector() {
           Go to Select Color Page
         </button>
       </div>
-    </>
+    </div>
   );
 }
 

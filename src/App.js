@@ -9,6 +9,7 @@ import {
 import Start from "./pages/Start";
 import About from "./pages/About";
 import SelectFashion from "./pages/SelectFashion";
+import SelectColor from "./pages/SelectColor";
 import Test from "./pages/Test";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
@@ -38,6 +39,7 @@ const App = () => {
           <Route path="/" element={<Start />} />
           <Route path="/about" element={<About />} />
           <Route path="/selectFashion" element={<SelectFashion />} />
+          <Route path="/selectColor" element={<SelectColor />} />
           <Route path="/test" element={<Test />} />
         </Routes>
       </Layout>
