@@ -4,8 +4,8 @@ function App() {
   const [showPassword, setShowPassword] = useState(false);
 
   return (
-    <div style={{ height: '100vh', textAlign: 'center', backgroundColor: '#f5f5f5' }}>
-      <h1 style={{ marginTop: '40px', fontSize: '3rem', fontWeight: 'bold' }}>OutFit</h1>
+    <div style={{ height: '100vh', textAlign: 'center', backgroundColor: '#ffffff' }}>
+      <h1 style={{ marginTop: '40px', fontSize: '3rem', fontWeight: 'bold' }}>Out Fit</h1>
       <p style={{ marginBottom: '40px' }}>あなたらしい色合わせを見つけましょう</p>
 
       <form style={{ maxWidth: '400px', margin: '0 auto', padding: '20px' }}>
@@ -34,17 +34,19 @@ function App() {
               borderRadius: '10px',
             }}
           />
-          <span
-            onClick={() => setShowPassword(!showPassword)}
-            style={{
-              position: 'absolute',
-              right: '10px',
-              top: '45%',
-              cursor: 'pointer',
-            }}
-          >
-            {showPassword ? '🙈' : '👁️'}
-          </span>
+          <i
+  className={`fas ${showPassword ? 'fa-eye-slash' : 'fa-eye'}`}
+  onClick={() => setShowPassword(!showPassword)}
+  style={{
+    position: 'absolute',
+    right: '10px',
+    top: '55%',
+    cursor: 'pointer',
+    fontSize: '24px',  // アイコンの大きさを調整
+    color: '#333',
+  }}
+></i>
+
         </div>
         <p style={{ color: 'red', marginBottom: '20px' }}>
           有効なメールアドレスを入力してください。
