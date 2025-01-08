@@ -1,4 +1,5 @@
 import React from "react";
+import db from "./firebase";
 import {
   BrowserRouter as Router,
   Route,
@@ -10,9 +11,11 @@ import Start from "./pages/Start";
 import About from "./pages/About";
 import SelectFashion from "./pages/SelectFashion";
 import SelectColor from "./pages/SelectColor";
-import Test from "./pages/Test";
+import Post from "./pages/Post";
+import Submitted from "./pages/Submitted";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+import firebase from "firebase/compat/app";
 
 const Layout = ({ children }) => {
   const location = useLocation();
@@ -29,7 +32,6 @@ const Layout = ({ children }) => {
   );
 };
 
-// App Component
 const App = () => {
   return (
     <Router>
@@ -38,9 +40,10 @@ const App = () => {
         <Routes>
           <Route path="/" element={<Start />} />
           <Route path="/about" element={<About />} />
-          <Route path="/selectFashion" element={<SelectFashion />} />
-          <Route path="/selectColor" element={<SelectColor />} />
-          <Route path="/test" element={<Test />} />
+          <Route path="/select-fashion" element={<SelectFashion />} />
+          <Route path="/select-color" element={<SelectColor />} />
+          <Route path="/post" element={<Post />} />
+          <Route path="/submitted" element={<Submitted />} />
         </Routes>
       </Layout>
     </Router>

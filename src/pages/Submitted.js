@@ -7,12 +7,12 @@ const About = () => {
 
   return (
     <div style={{ textAlign: "center", marginTop: "50px" }}>
-      <h1>About Page</h1>
+      <h1>Your Fashion was successfully submitted!</h1>
       <button
-        onClick={() => navigate("/select-fashion")}
+        onClick={() => navigate("/About")}
         style={{ padding: "10px 20px", fontSize: "16px" }}
       >
-        Go to Select Fashion Page
+        Go to About Page
       </button>
     </div>
   );
