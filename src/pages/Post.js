@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 
 // カテゴリーの順番
@@ -17,10 +17,24 @@ function Post() {
   const [description, setDescription] = useState("");
   const [errorMessage, setErrorMessage] = useState(""); // エラーメッセージを管理
 
+  // 初期値としてlocalStorageからタイトルと説明文を読み込む
+  useEffect(() => {
+    const storedTitle = localStorage.getItem("title");
+    const storedDescription = localStorage.getItem("description");
+
+    if (storedTitle) {
+      setTitle(storedTitle);
+    }
+    if (storedDescription) {
+      setDescription(storedDescription);
+    }
+  }, []);
+
   // タイトルの変更ハンドラ
   const handleTitleChange = (e) => {
     const value = e.target.value;
     setTitle(value);
+    localStorage.setItem("title", value); // 入力途中でlocalStorageに保存
     validateTitle(value);
   };
 
@@ -28,6 +42,7 @@ function Post() {
   const handleDescriptionChange = (e) => {
     const value = e.target.value;
     setDescription(value);
+    localStorage.setItem("description", value); // 入力途中でlocalStorageに保存
     validateDescription(value);
   };
 
@@ -63,7 +78,11 @@ function Post() {
 
     // バリデーションが成功した場合
     setErrorMessage(""); // エラーメッセージをクリア
-    console.log("Submitted!");
+
+    // localStorageからタイトルと説明文を削除
+    localStorage.removeItem("title");
+    localStorage.removeItem("description");
+
     navigate("/submitted");
   };
 
@@ -83,19 +102,25 @@ function Post() {
   const renderProcessedImages = () => {
     if (!processedFashions) return null;
 
-    return Object.entries(processedFashions).map(
-      ([category, imageSrc], index) => (
-        <img
-          key={category}
-          src={imageSrc}
-          alt={category}
-          style={{
-            ...styles.categoryImage,
-            zIndex: index + 2, // 重なり順（modelFashionより上）
-          }}
-        />
-      )
-    );
+    // categoriesOrderに基づいて順序を整列
+    const sortedImages = categoriesOrder
+      .filter((category) => processedFashions[category]) // 存在するカテゴリーのみ取得
+      .map((category) => ({
+        category,
+        imageSrc: processedFashions[category],
+      }));
+
+    return sortedImages.map(({ category, imageSrc }, index) => (
+      <img
+        key={category}
+        src={imageSrc}
+        alt={category}
+        style={{
+          ...styles.categoryImage,
+          zIndex: index + 2, // 重なり順（modelFashionより上）
+        }}
+      />
+    ));
   };
 
   return (
@@ -219,8 +244,8 @@ const styles = {
   },
   errorMessage: {
     color: "red",
-    fontSize: "14px",
-    marginBottom: "10px",
+    marginTop: "20px",
+    fontWeight: "bold",
   },
   button: {
     padding: "10px 20px",

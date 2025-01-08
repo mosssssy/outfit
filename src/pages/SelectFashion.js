@@ -13,7 +13,7 @@ const initialFashions = {
   shoes: null,
 };
 
-const TABS = ["hairs", "tops", "bottoms", "shoes"];
+const categoriesOrder = ["shoes", "bottoms", "hairs", "tops"];
 
 function FashionSelector() {
   const navigate = useNavigate();
@@ -88,7 +88,7 @@ function FashionSelector() {
       <div style={styles.FashionContainer}>
         <img src={modelFashion} alt="Model" style={styles.modelFashion} />
 
-        {TABS.map((category, index) =>
+        {categoriesOrder.map((category, index) =>
           selectedFashions[category] ? (
             <img
               key={category}
@@ -125,7 +125,7 @@ function FashionSelector() {
 function TabButtons({ activeTab, onTabClick }) {
   return (
     <div style={styles.tabContainer}>
-      {TABS.map((tab) => (
+      {categoriesOrder.map((tab) => (
         <button
           key={tab}
           onClick={() => onTabClick(tab)}
