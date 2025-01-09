@@ -6,12 +6,9 @@ const Start = () => {
 
   return (
     <div style={styles.container}>
-      <h1>スタート画面</h1>
-      <button onClick={() => navigate("/sign-up")} style={styles.button}>
-        新規登録
-      </button>
+      <h1>パスワード再設定成功画面</h1>
       <button onClick={() => navigate("/log-in")} style={styles.button}>
-        ログイン
+        ログイン画面へ
       </button>
     </div>
   );
