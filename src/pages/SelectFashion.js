@@ -234,6 +234,7 @@ const styles = {
     padding: "10px 20px",
     fontSize: "16px",
     marginTop: "50px",
+    cursor: "pointer",
   },
 };
 

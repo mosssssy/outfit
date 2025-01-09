@@ -251,12 +251,12 @@ const styles = {
     padding: "10px 20px",
     fontSize: "16px",
     marginTop: "20px",
+    cursor: "pointer",
     // width: "100%",
     // backgroundColor: "#4CAF50",
     // color: "white",
     // border: "none",
     // borderRadius: "4px",
-    // cursor: "pointer",
   },
 };
 

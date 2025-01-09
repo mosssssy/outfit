@@ -1,5 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom"; // Linkコンポーネントをインポート
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -26,9 +27,9 @@ const SignUp = () => {
         />
       </div>
       <div>
-        <a onClick={() => navigate("/password-reset-email")} style={styles.a}>
+        <Link to="/password-reset-email" style={styles.a}>
           パスワードが分からない
-        </a>
+        </Link>{" "}
       </div>
       <button onClick={() => navigate("/home")} style={styles.button}>
         ログイン
@@ -45,6 +46,7 @@ const styles = {
   button: {
     padding: "10px 20px",
     fontSize: "16px",
+    cursor: "pointer",
   },
   input: {
     width: "30%",

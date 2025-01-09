@@ -252,6 +252,7 @@ const styles = {
     padding: "10px 20px",
     fontSize: "16px",
     marginTop: "20px",
+    cursor: "pointer",
   },
   helpSection: {
     marginTop: "20px",

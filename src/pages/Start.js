@@ -25,6 +25,7 @@ const styles = {
   button: {
     padding: "10px 20px",
     fontSize: "16px",
+    cursor: "pointer",
   },
 };
 
