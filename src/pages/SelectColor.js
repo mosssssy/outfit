@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
+import Button from "../components/Button";
 
 // カラー変換のヘルパー関数
 const rgbToHex = (r, g, b) =>
@@ -135,7 +136,7 @@ const ColorSelector = () => {
 
       {/* 右側：カラーセレクターとカテゴリオプション */}
       <div style={styles.rightContainer}>
-        <h2>Color Selector</h2>
+        <h2>色を選ぶ</h2>
         {["hairs", "tops", "bottoms", "shoes"].map((category) => (
           <div key={category} style={styles.colorPickerContainer}>
             <div style={styles.categoryLabel}>{category}</div>
@@ -154,12 +155,12 @@ const ColorSelector = () => {
             />
           </div>
         ))}
-        <button onClick={handlePost} style={styles.button}>
+        <Button onClick={handlePost} styleType="primary">
           Go to Post Page
-        </button>
-        <button onClick={handleBack} style={styles.button}>
+        </Button>
+        <Button onClick={handleBack} styleType="secondary">
           Back to Select Fashion Page
-        </button>
+        </Button>
         <div style={styles.helpSection}>
           <p>困ったときは…</p>
           <ul>
@@ -247,12 +248,6 @@ const styles = {
     width: "100px",
     border: "1px solid #ccc",
     borderRadius: "5px",
-  },
-  button: {
-    padding: "10px 20px",
-    fontSize: "16px",
-    marginTop: "20px",
-    cursor: "pointer",
   },
   helpSection: {
     marginTop: "20px",

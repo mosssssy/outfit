@@ -1,5 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import Button from "../components/Button";
 
 // About Component
 const About = () => {
@@ -8,12 +9,9 @@ const About = () => {
   return (
     <div style={{ textAlign: "center", marginTop: "50px" }}>
       <h1>About Page</h1>
-      <button
-        onClick={() => navigate("/select-fashion")}
-        style={{ padding: "10px 20px", fontSize: "16px" }}
-      >
+      <Button onClick={() => navigate("/select-fashion")} styleType="primary">
         Go to Select Fashion Page
-      </button>
+      </Button>
     </div>
   );
 };

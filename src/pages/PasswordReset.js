@@ -1,5 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import Button from "../components/Button";
 
 const PasswordResetEmail = () => {
   const navigate = useNavigate();
@@ -25,12 +26,12 @@ const PasswordResetEmail = () => {
           style={styles.input}
         />
       </div>
-      <button
+      <Button
         onClick={() => navigate("/password-reset-success")}
-        style={styles.button}
+        styleType="primary"
       >
         登録する
-      </button>
+      </Button>
     </div>
   );
 };
@@ -39,11 +40,6 @@ const styles = {
   container: {
     textAlign: "center",
     marginTop: "50px",
-  },
-  button: {
-    padding: "10px 20px",
-    fontSize: "16px",
-    cursor: "pointer",
   },
   input: {
     width: "30%",

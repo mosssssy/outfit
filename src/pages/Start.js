@@ -1,5 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import Button from "../components/Button"; // 作成したButtonコンポーネントをインポート
 
 const Start = () => {
   const navigate = useNavigate();
@@ -7,12 +8,12 @@ const Start = () => {
   return (
     <div style={styles.container}>
       <h1>スタート画面</h1>
-      <button onClick={() => navigate("/sign-up")} style={styles.button}>
+      <Button onClick={() => navigate("/sign-up")} styleType="primary">
         新規登録
-      </button>
-      <button onClick={() => navigate("/log-in")} style={styles.button}>
+      </Button>
+      <Button onClick={() => navigate("/log-in")} styleType="primary">
         ログイン
-      </button>
+      </Button>
     </div>
   );
 };
@@ -21,11 +22,6 @@ const styles = {
   container: {
     textAlign: "center",
     marginTop: "50px",
-  },
-  button: {
-    padding: "10px 20px",
-    fontSize: "16px",
-    cursor: "pointer",
   },
 };
 

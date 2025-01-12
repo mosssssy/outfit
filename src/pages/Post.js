@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
+import { getAuth } from "firebase/auth";
+import { getFirestore, doc, setDoc } from "firebase/firestore";
+import Button from "../components/Button";
 
-// カテゴリーの順番
 const categoriesOrder = ["shoes", "bottoms", "hairs", "tops"];
 
 function Post() {
@@ -10,175 +12,113 @@ function Post() {
   const { selectedColors, processedFashions, selectedFashions } =
     location.state || {};
 
-  const modelFashion = "/assets/model_01.png"; // モデル画像
+  const modelFashion = "/assets/model_01.png";
 
-  // タイトルと説明文の状態を管理
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [errorMessage, setErrorMessage] = useState(""); // エラーメッセージを管理
+  const [errorMessage, setErrorMessage] = useState("");
 
-  // 初期値としてlocalStorageからタイトルと説明文を読み込む
+  const auth = getAuth();
+  const firestore = getFirestore();
+
   useEffect(() => {
-    const storedTitle = localStorage.getItem("title");
-    const storedDescription = localStorage.getItem("description");
-
-    if (storedTitle) {
-      setTitle(storedTitle);
-    }
-    if (storedDescription) {
-      setDescription(storedDescription);
-    }
+    setTitle(localStorage.getItem("title") || "");
+    setDescription(localStorage.getItem("description") || "");
   }, []);
 
-  // タイトルの変更ハンドラ
-  const handleTitleChange = (e) => {
+  const handleInputChange = (setter) => (e) => {
     const value = e.target.value;
-    setTitle(value);
-    localStorage.setItem("title", value); // 入力途中でlocalStorageに保存
-    validateTitle(value);
+    setter(value);
+    localStorage.setItem(e.target.name, value);
   };
 
-  // 説明文の変更ハンドラ
-  const handleDescriptionChange = (e) => {
-    const value = e.target.value;
-    setDescription(value);
-    localStorage.setItem("description", value); // 入力途中でlocalStorageに保存
-    validateDescription(value);
-  };
+  const handleSubmit = async () => {
+    if (!title.trim()) return setErrorMessage("タイトルは必須です");
+    if (title.length > 30)
+      return setErrorMessage("タイトルは30字以内で入力してください");
+    if (description.length > 100)
+      return setErrorMessage("説明文は100字以内で入力してください");
 
-  // バリデーションを含むタイトルのチェック
-  const validateTitle = (value) => {
-    if (value.length <= 30) {
-      setErrorMessage(""); // 入力が適正ならエラーメッセージを消す
-    } else {
-      setErrorMessage("タイトルは30字以内で入力してください");
-    }
-  };
+    try {
+      const user = auth.currentUser;
+      if (!user) throw new Error("ユーザーが認証されていません");
 
-  // バリデーションを含む説明文のチェック
-  const validateDescription = (value) => {
-    if (value.length <= 100) {
-      setErrorMessage(""); // 入力が適正ならエラーメッセージを消す
-    } else {
-      setErrorMessage("説明文は100文字以内で入力してください");
-    }
-  };
-
-  // バリデーションを含むSubmit処理
-  const handleSubmit = () => {
-    if (!title.trim()) {
-      setErrorMessage("タイトルは必須です");
-      return;
-    }
-
-    if (title.length > 30) {
-      setErrorMessage("タイトルは30字以内で入力してください");
-      return;
-    }
-
-    // バリデーションが成功した場合
-    setErrorMessage(""); // エラーメッセージをクリア
-
-    // localStorageからタイトルと説明文を削除
-    localStorage.removeItem("title");
-    localStorage.removeItem("description");
-
-    navigate("/submitted");
-  };
-
-  // ナビゲーション処理
-  const handleBack = () => {
-    // "Select Fashion Page" に遷移し、現在選択されているファッションとカラーを渡す
-    navigate("/select-color", {
-      state: {
-        selectedFashions,
+      const docRef = doc(firestore, "posts", `${user.uid}_${Date.now()}`);
+      const postData = {
+        title,
+        description,
+        userID: user.uid,
         selectedColors,
+        selectedFashions,
         processedFashions,
-      },
-    });
+        timestamp: Date.now(),
+      };
+
+      await setDoc(docRef, postData);
+
+      localStorage.removeItem("title");
+      localStorage.removeItem("description");
+
+      navigate("/home");
+    } catch (error) {
+      setErrorMessage(error.message || "保存に失敗しました");
+    }
   };
 
-  // 処理された画像を表示する関数（カラーを反映した画像を描画）
   const renderProcessedImages = () => {
     if (!processedFashions) return null;
 
-    // categoriesOrderに基づいて順序を整列
-    const sortedImages = categoriesOrder
-      .filter((category) => processedFashions[category]) // 存在するカテゴリーのみ取得
-      .map((category) => ({
-        category,
-        imageSrc: processedFashions[category],
-      }));
-
-    return sortedImages.map(({ category, imageSrc }, index) => (
-      <img
-        key={category}
-        src={imageSrc}
-        alt={category}
-        style={{
-          ...styles.categoryImage,
-          zIndex: index + 2, // 重なり順（modelFashionより上）
-        }}
-      />
-    ));
+    return categoriesOrder
+      .filter((category) => processedFashions[category])
+      .map((category, index) => (
+        <img
+          key={category}
+          src={processedFashions[category]}
+          alt={category}
+          style={{
+            ...styles.categoryImage,
+            zIndex: index + 1,
+          }}
+        />
+      ));
   };
 
   return (
     <div style={styles.container}>
-      {/* 左側：モデル画像を最背面に配置 */}
       <div style={styles.leftSide}>
-        {/* modelFashionの配置 */}
-        <img
-          src={modelFashion} // modelFashionを最背面に表示
-          alt="Model"
-          style={styles.modelImage}
-        />
-        {renderProcessedImages()} {/* 他のファッション画像を重ねて表示 */}
+        <img src={modelFashion} alt="Model" style={styles.modelImage} />
+        {renderProcessedImages()}
       </div>
-
-      {/* 右側：情報入力フォームとボタン */}
       <div style={styles.rightSide}>
         <h2>Post Page</h2>
-
-        {/* タイトル入力フォーム */}
-        <div style={{ marginBottom: "10px" }}>
-          <input
-            type="text"
-            value={title}
-            onChange={handleTitleChange}
-            placeholder="タイトル (最大30字)"
-            style={styles.input}
-          />
-          <div style={styles.countText}>{title.length}/30</div>
-        </div>
-
-        {/* 説明文入力フォーム */}
-        <div style={{ marginBottom: "20px" }}>
-          <textarea
-            value={description}
-            onChange={handleDescriptionChange}
-            placeholder="説明文 (最大100字)"
-            rows="10"
-            cols="30"
-            style={styles.textArea}
-          />
-          <div style={styles.countText}>{description.length}/100</div>
-        </div>
-
-        {/* エラーメッセージ */}
+        <input
+          type="text"
+          name="title"
+          value={title}
+          onChange={handleInputChange(setTitle)}
+          placeholder="タイトル (最大30字)"
+          style={styles.input}
+        />
+        <div style={styles.countText}>{title.length}/30</div>
+        <textarea
+          name="description"
+          value={description}
+          onChange={handleInputChange(setDescription)}
+          placeholder="説明文 (最大100字)"
+          rows="5"
+          style={styles.textArea}
+        />
+        <div style={styles.countText}>{description.length}/100</div>
         {errorMessage && <div style={styles.errorMessage}>{errorMessage}</div>}
-
-        {/* Submitボタン */}
-        <button onClick={handleSubmit} style={styles.button}>
+        <Button onClick={handleSubmit} styleType="primary">
           Submit
-        </button>
-
-        <button
-          onClick={handleBack} // 前の画面に戻る
-          style={styles.button}
+        </Button>
+        <Button
+          onClick={() => navigate("/select-color", { state: location.state })}
+          styleType="secondary"
         >
-          Back to Color Selector
-        </button>
+          Back
+        </Button>
       </div>
     </div>
   );
@@ -187,7 +127,6 @@ function Post() {
 const styles = {
   container: {
     display: "flex",
-    // justifyContent: "space-between",
     padding: "20px",
   },
   leftSide: {
@@ -215,11 +154,6 @@ const styles = {
   rightSide: {
     marginLeft: "20px",
     flex: 1,
-    // width: "35%",
-    // padding: "10px",
-    // border: "1px solid #ccc",
-    // borderRadius: "8px",
-    // backgroundColor: "#f9f9f9",
   },
   input: {
     width: "100%",
@@ -246,17 +180,6 @@ const styles = {
     color: "red",
     marginTop: "20px",
     fontWeight: "bold",
-  },
-  button: {
-    padding: "10px 20px",
-    fontSize: "16px",
-    marginTop: "20px",
-    cursor: "pointer",
-    // width: "100%",
-    // backgroundColor: "#4CAF50",
-    // color: "white",
-    // border: "none",
-    // borderRadius: "4px",
   },
 };
 

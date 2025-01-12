@@ -13,6 +13,7 @@ import LogIn from "./pages/LogIn_"; // エラー回避
 import PasswordResetEmail from "./pages/PasswordResetEmail";
 import PasswordReset from "./pages/PasswordReset";
 import PasswordResetSuccess from "./pages/PasswordResetSuccess";
+import Home from "./pages/Home";
 import About from "./pages/About";
 import SelectFashion from "./pages/SelectFashion";
 import SelectColor from "./pages/SelectColor";
@@ -68,6 +69,7 @@ const App = () => {
             element={<PasswordResetSuccess />}
           />
           {/* パスワード再設定成功画面 */}
+          <Route path="/home" element={<Home />} /> {/* ホーム画面 */}
           <Route path="/about" element={<About />} />
           <Route path="/select-fashion" element={<SelectFashion />} />
           <Route path="/select-color" element={<SelectColor />} />

@@ -1,5 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import Button from "../components/Button";
 
 // About Component
 const About = () => {
@@ -8,9 +9,9 @@ const About = () => {
   return (
     <div style={styles.container}>
       <h1>Your Fashion was successfully submitted!</h1>
-      <button onClick={() => navigate("/About")} style={styles.button}>
+      <Button onClick={() => navigate("/About")} styleType="primary">
         Go to About Page
-      </button>
+      </Button>
     </div>
   );
 };
@@ -19,11 +20,6 @@ const styles = {
   container: {
     textAlign: "center",
     marginTop: "50px",
-  },
-  button: {
-    padding: "10px 20px",
-    fontSize: "16px",
-    cursor: "pointer",
   },
 };
 

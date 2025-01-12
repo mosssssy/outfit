@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import bottoms from "../components/BottomsList";
-import tops from "../components/TopsList";
-import shoes from "../components/ShoesList";
-import hairs from "../components/HairsList";
+import bottoms from "../components/fashionList/BottomsList";
+import tops from "../components/fashionList/TopsList";
+import shoes from "../components/fashionList/ShoesList";
+import hairs from "../components/fashionList/HairsList";
+import Button from "../components/Button";
 
 // 初期選択ファッション
 const initialFashions = {
@@ -14,6 +15,7 @@ const initialFashions = {
 };
 
 const categoriesOrder = ["shoes", "bottoms", "hairs", "tops"];
+const tabsOrder = ["hairs", "tops", "bottoms", "shoes"];
 
 function FashionSelector() {
   const navigate = useNavigate();
@@ -102,7 +104,7 @@ function FashionSelector() {
 
       {/* 右側：タブと画像リスト */}
       <div style={styles.rightSide}>
-        <h2>Fashion Selector</h2>
+        <h2>アイテムを選ぶ</h2>
         <TabButtons activeTab={activeTab} onTabClick={setActiveTab} />
 
         <FashionList
@@ -113,9 +115,9 @@ function FashionSelector() {
 
         {error && <ErrorMessage message={error} />}
 
-        <button onClick={handleSelectColorPage} style={styles.button}>
+        <Button onClick={handleSelectColorPage} styleType="primary">
           Go to Select Color Page
-        </button>
+        </Button>
       </div>
     </div>
   );
@@ -125,7 +127,7 @@ function FashionSelector() {
 function TabButtons({ activeTab, onTabClick }) {
   return (
     <div style={styles.tabContainer}>
-      {categoriesOrder.map((tab) => (
+      {tabsOrder.map((tab) => (
         <button
           key={tab}
           onClick={() => onTabClick(tab)}
@@ -202,7 +204,6 @@ const styles = {
   },
   rightSide: {
     flex: 1,
-    display: "flex",
     flexDirection: "column",
   },
   tabContainer: {
@@ -229,12 +230,6 @@ const styles = {
     color: "red",
     marginTop: "20px",
     fontWeight: "bold",
-  },
-  button: {
-    padding: "10px 20px",
-    fontSize: "16px",
-    marginTop: "50px",
-    cursor: "pointer",
   },
 };
 
