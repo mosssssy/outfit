@@ -1,0 +1,114 @@
+[debug] [2025-01-07T06:51:27.273Z] ----------------------------------------------------------------------
+[debug] [2025-01-07T06:51:27.275Z] Command:       /Users/kondouhibiki/.nvm/versions/node/v22.12.0/bin/node /Users/kondouhibiki/.nvm/versions/node/v22.12.0/bin/firebase init
+[debug] [2025-01-07T06:51:27.276Z] CLI Version:   13.29.1
+[debug] [2025-01-07T06:51:27.276Z] Platform:      darwin
+[debug] [2025-01-07T06:51:27.276Z] Node Version:  v22.12.0
+[debug] [2025-01-07T06:51:27.276Z] Time:          Tue Jan 07 2025 15:51:27 GMT+0900 (日本標準時)
+[debug] [2025-01-07T06:51:27.276Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2025-01-07T06:51:27.283Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-01-07T06:51:27.283Z] > authorizing via signed-in user (jevevef@gmail.com)
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  /Users/kondouhibiki/dev/outfit/outfit-login
+
+[info] 
+=== Project Setup
+[info] 
+[info] First, let's associate this project directory with a Firebase project.
+[info] You can create multiple project aliases by running firebase use --add, 
+[info] but for now we'll just set up a default project.
+[info] 
+[info] i  If you want to create a project in a Google Cloud organization or folder, please use "firebase projects:create" instead, and return to this command when you've created the project. 
+[debug] [2025-01-07T07:00:41.949Z] Checked if tokens are valid: true, expires at: 1736236054622
+[debug] [2025-01-07T07:00:41.949Z] Checked if tokens are valid: true, expires at: 1736236054622
+[debug] [2025-01-07T07:00:41.951Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects [none]
+[debug] [2025-01-07T07:00:41.951Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects {"projectId":"outfit-login-1","name":"outfit-login-1"}
+[debug] [2025-01-07T07:00:43.661Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects 200
+[debug] [2025-01-07T07:00:43.661Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects {"name":"operations/cp.8781005424341753705"}
+[debug] [2025-01-07T07:00:43.663Z] Checked if tokens are valid: true, expires at: 1736236054622
+[debug] [2025-01-07T07:00:43.663Z] Checked if tokens are valid: true, expires at: 1736236054622
+[debug] [2025-01-07T07:00:43.663Z] >>> [apiv2][query] GET https://cloudresourcemanager.googleapis.com/v1/operations/cp.8781005424341753705 [none]
+[debug] [2025-01-07T07:00:44.638Z] <<< [apiv2][status] GET https://cloudresourcemanager.googleapis.com/v1/operations/cp.8781005424341753705 200
+[debug] [2025-01-07T07:00:44.639Z] <<< [apiv2][body] GET https://cloudresourcemanager.googleapis.com/v1/operations/cp.8781005424341753705 {"name":"operations/cp.8781005424341753705","metadata":{"@type":"type.googleapis.com/google.cloudresourcemanager.v1.ProjectCreationStatus","ready":true},"done":true,"error":{"code":9,"message":"Callers must accept Terms of Service","details":[{"@type":"type.googleapis.com/google.rpc.PreconditionFailure","violations":[{"type":"TOS","subject":"cloud","description":"Callers must accept Terms of Service"}]}]}}
+[debug] [2025-01-07T07:00:44.807Z] FirebaseError: Callers must accept Terms of Service
+    at OperationPoller.poll (/Users/kondouhibiki/.nvm/versions/node/v22.12.0/lib/node_modules/firebase-tools/lib/operation-poller.js:24:19)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async createCloudProject (/Users/kondouhibiki/.nvm/versions/node/v22.12.0/lib/node_modules/firebase-tools/lib/management/projects.js:213:29)
+    at async createFirebaseProjectAndLog (/Users/kondouhibiki/.nvm/versions/node/v22.12.0/lib/node_modules/firebase-tools/lib/management/projects.js:71:9)
+    at async promptAndCreateNewProject (/Users/kondouhibiki/.nvm/versions/node/v22.12.0/lib/node_modules/firebase-tools/lib/init/features/project.js:32:12)
+    at async doSetup (/Users/kondouhibiki/.nvm/versions/node/v22.12.0/lib/node_modules/firebase-tools/lib/init/features/project.js:89:27)
+    at async init (/Users/kondouhibiki/.nvm/versions/node/v22.12.0/lib/node_modules/firebase-tools/lib/init/index.js:41:9)
+[error] 
+[error] Error: Failed to create project. See firebase-debug.log for more info.
+[debug] [2025-01-07T07:03:16.549Z] ----------------------------------------------------------------------
+[debug] [2025-01-07T07:03:16.554Z] Command:       /Users/kondouhibiki/.nvm/versions/node/v22.12.0/bin/node /Users/kondouhibiki/.nvm/versions/node/v22.12.0/bin/firebase init
+[debug] [2025-01-07T07:03:16.554Z] CLI Version:   13.29.1
+[debug] [2025-01-07T07:03:16.554Z] Platform:      darwin
+[debug] [2025-01-07T07:03:16.554Z] Node Version:  v22.12.0
+[debug] [2025-01-07T07:03:16.555Z] Time:          Tue Jan 07 2025 16:03:16 GMT+0900 (日本標準時)
+[debug] [2025-01-07T07:03:16.555Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2025-01-07T07:03:16.562Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-01-07T07:03:16.562Z] > authorizing via signed-in user (jevevef@gmail.com)
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  /Users/kondouhibiki/dev/outfit/outfit-login
+
+[info] 
+=== Project Setup
+[info] 
+[info] First, let's associate this project directory with a Firebase project.
+[info] You can create multiple project aliases by running firebase use --add, 
+[info] but for now we'll just set up a default project.
+[info] 
+[info] i  If you want to create a project in a Google Cloud organization or folder, please use "firebase projects:create" instead, and return to this command when you've created the project. 
+[debug] [2025-01-07T07:05:59.731Z] Checked if tokens are valid: true, expires at: 1736236054622
+[debug] [2025-01-07T07:05:59.731Z] Checked if tokens are valid: true, expires at: 1736236054622
+[debug] [2025-01-07T07:05:59.733Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects [none]
+[debug] [2025-01-07T07:05:59.733Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects {"projectId":"outfit-login-1","name":"outfit-login-hibiki-1"}
+[debug] [2025-01-07T07:06:00.852Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects 200
+[debug] [2025-01-07T07:06:00.853Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects {"name":"operations/cp.5005318788703418239"}
+[debug] [2025-01-07T07:06:00.854Z] Checked if tokens are valid: true, expires at: 1736236054622
+[debug] [2025-01-07T07:06:00.854Z] Checked if tokens are valid: true, expires at: 1736236054622
+[debug] [2025-01-07T07:06:00.854Z] >>> [apiv2][query] GET https://cloudresourcemanager.googleapis.com/v1/operations/cp.5005318788703418239 [none]
+[debug] [2025-01-07T07:06:01.869Z] <<< [apiv2][status] GET https://cloudresourcemanager.googleapis.com/v1/operations/cp.5005318788703418239 200
+[debug] [2025-01-07T07:06:01.869Z] <<< [apiv2][body] GET https://cloudresourcemanager.googleapis.com/v1/operations/cp.5005318788703418239 {"name":"operations/cp.5005318788703418239"}
+[debug] [2025-01-07T07:06:02.371Z] [Project Creation Poller] Retrying task index 0
+[debug] [2025-01-07T07:06:02.373Z] Checked if tokens are valid: true, expires at: 1736236054622
+[debug] [2025-01-07T07:06:02.373Z] Checked if tokens are valid: true, expires at: 1736236054622
+[debug] [2025-01-07T07:06:02.373Z] >>> [apiv2][query] GET https://cloudresourcemanager.googleapis.com/v1/operations/cp.5005318788703418239 [none]
+[debug] [2025-01-07T07:06:03.008Z] <<< [apiv2][status] GET https://cloudresourcemanager.googleapis.com/v1/operations/cp.5005318788703418239 200
+[debug] [2025-01-07T07:06:03.009Z] <<< [apiv2][body] GET https://cloudresourcemanager.googleapis.com/v1/operations/cp.5005318788703418239 {"name":"operations/cp.5005318788703418239"}
+[debug] [2025-01-07T07:06:04.010Z] [Project Creation Poller] Retrying task index 0
+[debug] [2025-01-07T07:06:04.011Z] Checked if tokens are valid: true, expires at: 1736236054622
+[debug] [2025-01-07T07:06:04.011Z] Checked if tokens are valid: true, expires at: 1736236054622
+[debug] [2025-01-07T07:06:04.012Z] >>> [apiv2][query] GET https://cloudresourcemanager.googleapis.com/v1/operations/cp.5005318788703418239 [none]
+[debug] [2025-01-07T07:06:04.538Z] <<< [apiv2][status] GET https://cloudresourcemanager.googleapis.com/v1/operations/cp.5005318788703418239 200
+[debug] [2025-01-07T07:06:04.539Z] <<< [apiv2][body] GET https://cloudresourcemanager.googleapis.com/v1/operations/cp.5005318788703418239 {"name":"operations/cp.5005318788703418239","metadata":{"@type":"type.googleapis.com/google.cloudresourcemanager.v1.ProjectCreationStatus","gettable":true,"ready":true},"done":true,"response":{"@type":"type.googleapis.com/google.cloudresourcemanager.v1.Project","projectNumber":"55796561617","projectId":"outfit-login-1","lifecycleState":"ACTIVE","name":"outfit-login-hibiki-1","createTime":"2025-01-07T07:06:02.518488Z"}}
+[debug] [2025-01-07T07:06:04.540Z] Checked if tokens are valid: true, expires at: 1736236054622
+[debug] [2025-01-07T07:06:04.541Z] Checked if tokens are valid: true, expires at: 1736236054622
+[debug] [2025-01-07T07:06:04.541Z] >>> [apiv2][query] POST https://firebase.googleapis.com/v1beta1/projects/outfit-login-1:addFirebase [none]
+[debug] [2025-01-07T07:06:06.008Z] <<< [apiv2][status] POST https://firebase.googleapis.com/v1beta1/projects/outfit-login-1:addFirebase 403
+[debug] [2025-01-07T07:06:06.008Z] <<< [apiv2][body] POST https://firebase.googleapis.com/v1beta1/projects/outfit-login-1:addFirebase {"error":{"code":403,"message":"The caller does not have permission","status":"PERMISSION_DENIED"}}
+[debug] [2025-01-07T07:06:06.009Z] Request to https://firebase.googleapis.com/v1beta1/projects/outfit-login-1:addFirebase had HTTP Error: 403, The caller does not have permission
+[debug] [2025-01-07T07:06:06.175Z] FirebaseError: Request to https://firebase.googleapis.com/v1beta1/projects/outfit-login-1:addFirebase had HTTP Error: 403, The caller does not have permission
+    at responseToError (/Users/kondouhibiki/.nvm/versions/node/v22.12.0/lib/node_modules/firebase-tools/lib/responseToError.js:52:12)
+    at RetryOperation._fn (/Users/kondouhibiki/.nvm/versions/node/v22.12.0/lib/node_modules/firebase-tools/lib/apiv2.js:312:77)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+[error] 
+[error] Error: Failed to add Firebase to Google Cloud Platform project. See firebase-debug.log for more info.
