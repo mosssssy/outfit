@@ -54,7 +54,7 @@ const styles = {
     alignItems: "center", // 縦位置を中央に揃える
   },
   errorMessage: {
-    color: "red",
+    color: "#ee2a7b",
     fontWeight: "bold",
     textAlign: "center", // テキストを中央揃え
   },
