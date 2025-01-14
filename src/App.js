@@ -1,108 +1,84 @@
-import React, { useState } from 'react';
+import React from "react";
+import db from "./firebase";
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  useNavigate,
+  useLocation,
+} from "react-router-dom";
+import Start from "./pages/Start";
+import SignUp from "./pages/SignUp";
+import LogIn from "./pages/LogIn_"; // エラー回避
+import PasswordResetEmail from "./pages/PasswordResetEmail";
+import PasswordReset from "./pages/PasswordReset";
+import PasswordResetSuccess from "./pages/PasswordResetSuccess";
+import Home from "./pages/Home";
+import About from "./pages/About";
+import SelectFashion from "./pages/SelectFashion";
+import SelectColor from "./pages/SelectColor";
+import Post from "./pages/Post";
+import Submitted from "./pages/Submitted";
+import Header from "./components/Header";
+import Footer from "./components/Footer";
+import firebase from "firebase/compat/app";
 
-function App() {
-  const [showPassword, setShowPassword] = useState(false);
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+const Layout = ({ children }) => {
+  const location = useLocation();
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (!email.includes('@') || password.length < 6) {
-      alert('有効なメールアドレスと英数字6文字以上のパスワードを入力してください。');
-      return;
-    }
-    alert('新規登録が完了しました！');
-  };
+  // Header と Footer を非表示にするパスを配列で定義
+  const pathsToHideHeaderFooter = [
+    "/",
+    "/sign-up",
+    "/log-in",
+    "/password-reset-email",
+    "/password-reset",
+    "/password-reset-success",
+  ];
+
+  // 現在のパスが非表示対象かを判定
+  const hideHeaderFooter = pathsToHideHeaderFooter.includes(location.pathname);
 
   return (
-    <div style={{ height: '100vh', textAlign: 'center', backgroundColor: '#ffffff' }}>
-      <h1 style={{ marginTop: '40px', fontSize: '3rem', fontWeight: 'bold' }}>Out Fit</h1>
-      <p style={{ marginBottom: '40px' }}>あなたらしい色合わせを見つけましょう</p>
-
-      <form style={{ maxWidth: '400px', margin: '0 auto', padding: '20px' }} onSubmit={handleSubmit}>
-        <div style={{ marginBottom: '20px' }}>
-          <label style={{ display: 'block', textAlign: 'left', marginBottom: '10px' }}>メールアドレス</label>
-          <input
-            type="email"
-            placeholder="メールアドレス"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            style={{
-              width: '100%',
-              padding: '12px',
-              border: '2px solid #000',
-              borderRadius: '10px',
-            }}
-            required
-          />
-        </div>
-        <div style={{ marginBottom: '20px', position: 'relative' }}>
-          <label style={{ display: 'block', textAlign: 'left', marginBottom: '10px' }}>パスワード</label>
-          <input
-            type={showPassword ? 'text' : 'password'}
-            placeholder="パスワード (英数字6文字以上)"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            style={{
-              width: '100%',
-              padding: '12px',
-              border: '2px solid #000',
-              borderRadius: '10px',
-            }}
-            required
-          />
-          <i
-            className={`fas ${showPassword ? 'fa-eye-slash' : 'fa-eye'}`}
-            onClick={() => setShowPassword(!showPassword)}
-            style={{
-              position: 'absolute',
-              right: '10px',
-              top: '55%',
-              cursor: 'pointer',
-              fontSize: '24px',
-              color: '#333',
-            }}
-          ></i>
-        </div>
-        <p style={{ color: 'red', marginBottom: '20px' }}>
-          有効なメールアドレスを入力してください。
-          <br />
-          パスワードは英数字6文字以上で設定してください。
-        </p>
-        <button
-          type="submit"
-          style={{
-            width: '100%',
-            padding: '15px',
-            backgroundColor: '#000',
-            color: '#fff',
-            border: 'none',
-            borderRadius: '10px',
-            fontSize: '1.2rem',
-          }}
-        >
-          新規登録
-        </button>
-      </form>
-
-      <div style={{ marginTop: '40px', display: 'flex', justifyContent: 'center' }}>
-        {[...Array(8)].map((_, index) => (
-          <div
-            key={index}
-            style={{
-              width: '50px',
-              height: '50px',
-              backgroundColor: '#333',
-              margin: '5px',
-              borderRadius: '5px',
-            }}
-          >
-            <span style={{ color: '#fff', lineHeight: '50px' }}>♀</span>
-          </div>
-        ))}
-      </div>
+    <div>
+      {!hideHeaderFooter && <Header />}
+      <main>{children}</main>
+      {!hideHeaderFooter && <Footer />}
     </div>
   );
-}
+};
+
+const App = () => {
+  return (
+    <Router>
+      <Layout>
+        {/* ページごとのルーティング */}
+        <Routes>
+          <Route path="/" element={<Start />} /> {/* スタート画面 */}
+          <Route path="/sign-up" element={<SignUp />} /> {/* 新規登録画面 */}
+          <Route path="/log-in" element={<LogIn />} /> {/* ログイン画面 */}
+          <Route
+            path="/password-reset-email"
+            element={<PasswordResetEmail />}
+          />
+          {/* パスワード再設定用メール送信画面 */}
+          <Route path="/password-reset" element={<PasswordReset />} />
+          {/* パスワード再設定画面 */}
+          <Route
+            path="/password-reset-success"
+            element={<PasswordResetSuccess />}
+          />
+          {/* パスワード再設定成功画面 */}
+          <Route path="/home" element={<Home />} /> {/* ホーム画面 */}
+          <Route path="/about" element={<About />} />
+          <Route path="/select-fashion" element={<SelectFashion />} />
+          <Route path="/select-color" element={<SelectColor />} />
+          <Route path="/post" element={<Post />} />
+          <Route path="/submitted" element={<Submitted />} />
+        </Routes>
+      </Layout>
+    </Router>
+  );
+};
 
 export default App;
