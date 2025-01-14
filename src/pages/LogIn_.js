@@ -4,6 +4,8 @@ import { Link } from "react-router-dom"; // Linkコンポーネントをイン�
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase"; // Firebase設定をインポート
 import Button from "../components/Button";
+import BackLink from "../components/BackLink_";
+import ErrorContainer from "../components/ErrorContainer_";
 
 const LogIn = () => {
   const navigate = useNavigate();
@@ -31,14 +33,9 @@ const LogIn = () => {
       );
       const user = userCredential.user;
 
-      console.log("ログイン成功: ", user);
-
       // ログイン成功後、/home に遷移
       navigate("/home");
     } catch (error) {
-      console.error("エラーコード:", error.code); // エラーコードをコンソールに表示
-      console.error("エラーメッセージ:", error.message); // エラーメッセージを表示
-
       let errorMessage = "エラーが発生しました";
       switch (error.code) {
         case "auth/user-not-found":
@@ -55,7 +52,7 @@ const LogIn = () => {
             "無効な資格情報です。メールアドレスとパスワードを再確認してください";
           break;
         default:
-          errorMessage = "不明なエラーが発生しました";
+          errorMessage = `不明なエラーが発生しました (${error.code})`;
           break;
       }
       setError(errorMessage);
@@ -64,6 +61,11 @@ const LogIn = () => {
 
   return (
     <div style={styles.container}>
+      <BackLink
+        onClick={() => {
+          navigate("/");
+        }}
+      />
       <h1>ログイン画面</h1>
       <form onSubmit={handleSubmit}>
         <div>
@@ -84,13 +86,13 @@ const LogIn = () => {
             style={styles.input}
           />
         </div>
-        {error && <p style={styles.errorMessage}>{error}</p>}{" "}
-        {/* エラーメッセージを表示 */}
         <div>
           <Link to="/password-reset-email" style={styles.a}>
             パスワードが分からない
           </Link>{" "}
         </div>
+        <ErrorContainer error={error}>{error}</ErrorContainer>
+        {/* エラーメッセージを表示 */}
         <Button type="submit" styleType="primary">
           ログイン
         </Button>
@@ -102,10 +104,11 @@ const LogIn = () => {
 const styles = {
   container: {
     textAlign: "center",
-    marginTop: "50px",
+    margin: "50px",
   },
   input: {
     width: "30%",
+    minWidth: "240px",
     padding: "8px",
     fontSize: "16px",
     marginBottom: "10px",
@@ -115,11 +118,6 @@ const styles = {
   a: {
     color: "blue",
     textDecoration: "underline",
-  },
-  errorMessage: {
-    color: "red",
-    marginTop: "20px",
-    fontWeight: "bold",
   },
 };
 

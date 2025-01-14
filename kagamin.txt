@@ -1,5 +1,11 @@
 かがみん用のメモです
 
+### TODO
+    【済】ログイン時のエラーが"invalid credential"しか出ない（オフィスアワー）
+    【済】パスワード変更画面へのリダイレクトを設定（デプロイ後）
+    ・Firestore Databaseのルールを変更（デプロイ時）
+    
+
 ### ページ遷移
 ＜ヘッダー＞
     「ロゴ」　→　【ホーム画面】
@@ -106,7 +112,7 @@
         「作成者アイコン」「ユーザーネーム」　→　【ユーザー詳細画面】
 
 【設定画面】
-    <Route path="/settings" element={<Setting />} />
+    <Route path="/settings" element={<Settings />} />
     遷移：
         「マイページを編集する」　→　【マイページ編集画面】
         「メールアドレスを変更する」　→　【メールアドレス変更画面】
@@ -118,25 +124,25 @@
     遷移：
 
 【メールアドレス再設定画面】
-    <Route path="/email-change" element={<EmailChange />} />
+    <Route path="/email-reset" element={<EmailReset />} />
     ※新しいメールアドレスを設定する。
     遷移：
         「登録する」　→　【メールアドレス再設定成功画面】
 
 【メールアドレス再設定成功画面】
-    <Route path="/email-change-success" element={<EmailChangeSuccess />} />
+    <Route path="/email-reset-success" element={<EmailResetSuccess />} />
     ※新しいメールアドレスが設定されたことを表示し、ログイン画面への遷移を促す。
     遷移：
         「ログイン画面へ」　→　【ログイン画面】
 
 【退会確認画面】
-    <Route path="/delete-confirm" element={<EmailChange />} />
+    <Route path="/delete-confirm" element={<DeleteConfirm />} />
     ※本当に退会するのか最終確認をする。
     遷移：
         「退会する」　→　【退会成功画面】
 
 【退会成功画面】
-    <Route path="/delete-success" element={<EmailChangeSuccess />} />
+    <Route path="/delete-success" element={<DeleteSuccess />} />
     ※退会したことを表示し、ログイン画面への遷移を促す。
     遷移：
         「ログイン画面へ」　→　【ログイン画面】
@@ -168,4 +174,3 @@
     遷移：
         ＜ヘッダー＞
         「ホーム画面へ」　→　【ホーム画面】
-
