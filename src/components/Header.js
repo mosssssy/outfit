@@ -1,19 +1,60 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import { FaUser } from "react-icons/fa"; // react-iconsから人型アイコンをインポート
+import { FaUser, FaSearch } from "react-icons/fa"; // react-iconsから人型アイコンをインポート
 import { Link } from "react-router-dom"; // Linkコンポーネントをインポート
 import Button from "./Button";
 import { getAuth, signOut } from "firebase/auth"; // Firebase Authのインポート
+import {
+  getFirestore,
+  collection,
+  getDocs,
+  query,
+  where,
+} from "firebase/firestore"; // Firestoreインポート
 
 const Header = () => {
   const navigate = useNavigate();
   const [menuVisible, setMenuVisible] = useState(false); // メニューの表示状態を管理
+  const menuRef = useRef(null); // メニューを参照するためのref
+  const iconRef = useRef(null); // メニューアイコンを参照するためのref
   const auth = getAuth(); // Firebaseの認証インスタンス
+  const [searchQuery, setSearchQuery] = useState(""); // 検索バーの入力値
 
-  const toggleMenu = () => {
-    setMenuVisible((prev) => !prev); // メニューの表示状態を切り替え
+  const handleSearch = async () => {
+    if (searchQuery.trim() === "") return; // 入力が空でない場合のみ検索を実行
+    const db = getFirestore();
+    const fashionCollection = collection(db, "fashions");
+    const q = query(
+      fashionCollection,
+      where("title", ">=", searchQuery),
+      where("title", "<=", searchQuery + "\uf8ff")
+    );
+    const querySnapshot = await getDocs(q);
+    const searchResults = querySnapshot.docs.map((doc) => ({
+      id: doc.id,
+      ...doc.data(),
+    }));
+    navigate("/search", { state: { results: searchResults } }); // 検索結果を`/search`に遷移
   };
 
+  // メニューを表示/非表示にする
+  const toggleMenu = () => {
+    setMenuVisible((prev) => !prev);
+  };
+
+  // メニュー外クリックで閉じる処理
+  const handleClickOutside = (e) => {
+    // メニューやメニューアイコンがクリックされた場合は閉じない
+    if (
+      menuRef.current &&
+      !menuRef.current.contains(e.target) &&
+      !iconRef.current.contains(e.target)
+    ) {
+      setMenuVisible(false); // メニュー外をクリックした場合に閉じる
+    }
+  };
+
+  // 画面遷移時にメニューを閉じる
   const handleLogout = async () => {
     try {
       await signOut(auth); // Firebaseからサインアウト
@@ -24,15 +65,38 @@ const Header = () => {
     }
   };
 
+  // useEffectでクリックイベントをリスン
+  useEffect(() => {
+    // メニュー外クリックでメニューを閉じる
+    document.addEventListener("click", handleClickOutside);
+
+    // クリーンアップ
+    return () => {
+      document.removeEventListener("click", handleClickOutside);
+    };
+  }, []);
+
   return (
     <header style={styles.header}>
       <Link to="/home" style={styles.logo}>
         OutFit
       </Link>
       <div style={styles.rightContainer}>
-        <input type="text" placeholder="検索" style={styles.searchBar} />
+        <input
+          type="text"
+          placeholder="検索"
+          style={styles.searchBar}
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+        />
+
+        <FaSearch
+          style={styles.searchIcon}
+          onClick={handleSearch} // アイコンがクリックされたときに検索を実行
+        />
         <div
-          style={styles.icon}
+          ref={iconRef} // メニューアイコンの参照を追加
+          style={styles.userIcon}
           onClick={toggleMenu} // アイコンがクリックされた際にメニューを表示/非表示
         >
           <FaUser />
@@ -43,20 +107,28 @@ const Header = () => {
 
         {/* メニューが表示されているときのみ表示 */}
         {menuVisible && (
-          <div style={styles.menu}>
-            <Link to="/my-page" style={styles.menuItem}>
+          <div ref={menuRef} style={styles.menu}>
+            <Link onClick={toggleMenu} to="/my-page" style={styles.menuItem}>
               マイページ
             </Link>
-            <Link to="/follow-list" style={styles.menuItem}>
+            <Link
+              onClick={toggleMenu}
+              to="/follow-list"
+              style={styles.menuItem}
+            >
               フォロー一覧
             </Link>
-            <Link to="/follower-list" style={styles.menuItem}>
+            <Link
+              onClick={toggleMenu}
+              to="/follower-list"
+              style={styles.menuItem}
+            >
               フォロワー一覧
             </Link>
-            <Link to="/good-list" style={styles.menuItem}>
+            <Link onClick={toggleMenu} to="/good-list" style={styles.menuItem}>
               いいねしたファッション
             </Link>
-            <Link to="/settings" style={styles.menuItem}>
+            <Link onClick={toggleMenu} to="/settings" style={styles.menuItem}>
               設定
             </Link>
             <Link onClick={handleLogout} style={styles.menuItem}>
@@ -90,13 +162,20 @@ const styles = {
     position: "relative", // メニューを右側に絶対位置で配置
   },
   searchBar: {
-    width: "200px",
-    margin: "0 10px",
+    minWidth: "200px",
+    maxWidth: "400px",
+    margin: "0 5px",
     padding: "5px 10px",
     borderRadius: "5px",
     border: "none",
   },
-  icon: {
+  searchIcon: {
+    fontSize: "1rem",
+    color: "#fff",
+    cursor: "pointer",
+    marginRight: "20px",
+  },
+  userIcon: {
     fontSize: "1.5rem",
     marginRight: "20px",
     color: "white", // アイコンを白色に
@@ -104,8 +183,8 @@ const styles = {
   },
   menu: {
     position: "absolute", // アイコンの直下に配置
-    top: "100%", // アイコンのすぐ下に表示
-    right: "0",
+    top: "125%", // アイコンのすぐ下に表示
+    right: "2.5%",
     backgroundColor: "#333",
     color: "#fff",
     borderRadius: "5px",
@@ -113,9 +192,6 @@ const styles = {
     minWidth: "200px",
     padding: "10px 0",
     zIndex: 9999, // 最前面に表示するためにz-indexを設定
-    // opacity: menuVisible ? 1 : 0, // メニューが表示されるときにフェードイン
-    // transform: menuVisible ? "translateY(0)" : "translateY(-10px)", // メニューが表示されるときにスライドダウン
-    // transition: "opacity 0.3s ease, transform 0.3s ease", // アニメーションを追加
   },
   menuItem: {
     color: "#fff",
