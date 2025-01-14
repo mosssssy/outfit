@@ -1,21 +1,22 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
-import { getFirestore, doc, setDoc } from "firebase/firestore"; // Firestoreをインポート
-import { auth } from "../firebase"; // Firebase設定をインポート
+import { getFirestore, doc, setDoc } from "firebase/firestore";
+import { auth } from "../firebase";
 import Button from "../components/Button";
+import BackLink from "../components/BackLink_";
+import ErrorContainer from "../components/ErrorContainer_";
 
 const SignUp = () => {
   const navigate = useNavigate();
 
-  // useStateを使って入力値を管理
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [username, setUsername] = useState("");
   const [error, setError] = useState("");
 
   const handleSubmit = async (e) => {
-    e.preventDefault(); // フォームのデフォルト動作を防止
+    e.preventDefault();
 
     if (!email || !password || !username) {
       setError("すべてのフィールドを入力してください");
@@ -23,7 +24,6 @@ const SignUp = () => {
     }
 
     try {
-      // Firebaseの認証を使ってユーザーを作成
       const userCredential = await createUserWithEmailAndPassword(
         auth,
         email,
@@ -31,20 +31,16 @@ const SignUp = () => {
       );
       const user = userCredential.user;
 
-      // usersコレクションに新しいドキュメントを作成
       const db = getFirestore();
-      const userRef = doc(db, "users", user.uid); // ユーザーのuidを使ってドキュメントを作成
+      const userRef = doc(db, "users", user.uid);
       await setDoc(userRef, {
-        username: username, // 新しいユーザー名を保存
-        email: email, // メールアドレスも保存することができます
+        username: username,
+        email: email,
       });
 
       console.log("ユーザー作成成功: ", user);
-
-      // 登録が成功したら/homeに遷移
       navigate("/home");
     } catch (error) {
-      // Firebaseエラーコードに基づいてメッセージを表示
       let errorMessage = "エラーが発生しました";
       switch (error.code) {
         case "auth/email-already-in-use":
@@ -68,52 +64,60 @@ const SignUp = () => {
   };
 
   return (
-    <div style={styles.container}>
-      <h1>新規登録画面</h1>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder="メールアドレス"
-            style={styles.input}
-          />
-        </div>
-        <div>
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            placeholder="パスワード"
-            style={styles.input}
-          />
-        </div>
-        <div>
-          <input
-            type="text"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            placeholder="ユーザーネーム（8文字以内）"
-            style={styles.input}
-          />
-        </div>
-        {error && <p style={styles.errorMessage}>{error}</p>}
-        <Button type="submit" styleType="primary">
-          登録する
-        </Button>
-      </form>
+    <div style={styles.mainContainer}>
+      <BackLink
+        onClick={() => {
+          navigate("/");
+        }}
+      />
+      <div style={styles.Container}>
+        <h1>新規登録画面</h1>
+        <form onSubmit={handleSubmit}>
+          <div>
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="メールアドレス"
+              style={styles.input}
+            />
+          </div>
+          <div>
+            <input
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder="パスワード"
+              style={styles.input}
+            />
+          </div>
+          <div>
+            <input
+              type="text"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              placeholder="ユーザーネーム（8文字以内）"
+              style={styles.input}
+            />
+          </div>
+          <ErrorContainer error={error}>{error}</ErrorContainer>
+          <Button type="submit" styleType="primary">
+            登録する
+          </Button>
+        </form>
+      </div>
     </div>
   );
 };
 
 const styles = {
-  container: {
+  mainContainer: {
     textAlign: "center",
-    marginTop: "50px",
+    margin: "50px",
   },
   input: {
     width: "30%",
+    minWidth: "240px",
     padding: "8px",
     fontSize: "16px",
     marginBottom: "10px",

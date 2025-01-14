@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom"; // Linkコンポーネントをインポート
 import {
   getFirestore,
   collection,
@@ -13,7 +15,8 @@ import {
 import Button from "../components/Button";
 
 function Home() {
-  const [posts, setPosts] = useState([]); // postsデータを管理
+  const navigate = useNavigate();
+  const [fashions, setFashions] = useState([]); // fashionsデータを管理
   const [error, setError] = useState(""); // エラーメッセージを管理
   const [users, setUsers] = useState({}); // userIDとusernameをマッピングするオブジェクト
   const [lastVisible, setLastVisible] = useState(null); // 最後に表示されたドキュメントを管理
@@ -24,39 +27,39 @@ function Home() {
   const categoriesOrder = ["shoes", "bottoms", "hairs", "tops"]; // カテゴリの順序
 
   // 最初に20件の投稿を取得する関数
-  const fetchPosts = async (startDoc = null) => {
+  const fetchFashions = async (startDoc = null) => {
     try {
       setLoading(true);
-      const postsCollection = collection(firestore, "posts"); // postsコレクションを参照
-      let postsQuery = query(
-        postsCollection,
+      const fashionsCollection = collection(firestore, "fashions"); // fashionsコレクションを参照
+      let fashionsQuery = query(
+        fashionsCollection,
         orderBy("timestamp", "desc"),
         limit(20) // 20件の投稿を取得
       );
 
       if (startDoc) {
-        postsQuery = query(postsQuery, startAfter(startDoc)); // 前回の最後の投稿から次の20件を取得
+        fashionsQuery = query(fashionsQuery, startAfter(startDoc)); // 前回の最後の投稿から次の20件を取得
       }
 
-      const snapshot = await getDocs(postsQuery); // クエリで並べ替えたドキュメントを取得
-      const postsData = snapshot.docs.map((doc) => ({
+      const snapshot = await getDocs(fashionsQuery); // クエリで並べ替えたドキュメントを取得
+      const fashionsData = snapshot.docs.map((doc) => ({
         id: doc.id, // ドキュメントIDを含める
         ...doc.data(), // ドキュメントデータ
       }));
 
       const usersData = {};
-      for (let post of postsData) {
-        const userDocRef = doc(firestore, "users", post.userID);
+      for (let fashion of fashionsData) {
+        const userDocRef = doc(firestore, "users", fashion.userID);
         const userDoc = await getDoc(userDocRef);
         if (userDoc.exists()) {
-          usersData[post.userID] = userDoc.data().username; // usernameを保存
+          usersData[fashion.userID] = userDoc.data().username; // usernameを保存
         }
       }
 
       if (startDoc) {
-        setPosts((prevPosts) => [...prevPosts, ...postsData]); // 新しい投稿を追加
+        setFashions((prevFashions) => [...prevFashions, ...fashionsData]); // 新しい投稿を追加
       } else {
-        setPosts(postsData); // 最初の20件のみ表示
+        setFashions(fashionsData); // 最初の20件のみ表示
       }
 
       setUsers(usersData); // usersを更新
@@ -75,10 +78,10 @@ function Home() {
   };
 
   useEffect(() => {
-    fetchPosts(); // 初回データ取得
+    fetchFashions(); // 初回データ取得
   }, [firestore]);
 
-  const renderProcessedImages = (processedFashions) => {
+  const renderProcessedImages = (processedFashions, fashionId) => {
     if (!processedFashions) return null;
 
     const sortedImages = categoriesOrder
@@ -89,7 +92,10 @@ function Home() {
       }));
 
     return (
-      <div style={styles.imageContainer}>
+      <div
+        onClick={() => handleFashionClick(fashionId)}
+        style={styles.imageContainer}
+      >
         <img src={modelFashion} alt="Model" style={styles.modelImage} />
         {sortedImages.map(({ category, imageSrc }, index) => (
           <img
@@ -106,28 +112,42 @@ function Home() {
     );
   };
 
+  const handleFashionClick = (fashionId) => {
+    navigate(`/fashion-detail/${fashionId}`); // 選択された投稿の詳細ページに遷移
+  };
+
   return (
     <div style={styles.container}>
-      <h2>Home Page</h2>
+      <h1>ホーム画面</h1>
       {error && <div style={styles.errorMessage}>{error}</div>}
-      <div style={styles.postsContainer}>
-        {posts.length > 0 ? (
-          posts.map((post) => (
-            <div key={post.id} style={styles.postCard}>
-              {renderProcessedImages(post.processedFashions)}
-              <h3>{post.title}</h3>
-              <p>{users[post.userID]}</p> {/* userIDからusernameを表示 */}
+      <div style={styles.fashionsContainer}>
+        {fashions.length > 0 ? (
+          fashions.map((fashion) => (
+            <div key={fashion.id} style={styles.fashionCard}>
+              {renderProcessedImages(fashion.processedFashions, fashion.id)}
+              <p
+                onClick={() => handleFashionClick(fashion.id)}
+                style={styles.title}
+              >
+                {fashion.title.length > 10
+                  ? `${fashion.title.slice(0, 10)}…`
+                  : fashion.title}
+              </p>
+              <Link to="/user-detail" style={styles.username}>
+                {users[fashion.userID]}
+              </Link>{" "}
+              {/* userIDからusernameを表示 */}
             </div>
           ))
         ) : (
-          <p>No posts available</p>
+          <p>No fashions available</p>
         )}
       </div>
-      {lastVisible && !loading && posts.length >= 20 ? (
-        <Button onClick={() => fetchPosts(lastVisible)} styleType="primary">
+      {lastVisible && !loading && fashions.length >= 20 ? (
+        <Button onClick={() => fetchFashions(lastVisible)} styleType="primary">
           次の20件を表示する
         </Button>
-      ) : posts.length > 0 && !loading ? (
+      ) : fashions.length > 0 && !loading ? (
         <p>すべての投稿を表示しました</p>
       ) : null}
       {loading && <p>Loading...</p>}
@@ -137,12 +157,12 @@ function Home() {
 
 const styles = {
   container: { padding: "20px" },
-  postsContainer: {
+  fashionsContainer: {
     display: "flex",
     flexWrap: "wrap",
     gap: "20px",
   },
-  postCard: {
+  fashionCard: {
     border: "1px solid #ccc",
     borderRadius: "8px",
     padding: "8px",
@@ -156,6 +176,7 @@ const styles = {
     border: "1px solid #ccc",
     backgroundColor: "#D3D3D3",
     marginBottom: "10px",
+    cursor: "pointer",
   },
   modelImage: {
     position: "absolute",
@@ -173,6 +194,12 @@ const styles = {
     height: "420px",
   },
   smallText: { fontSize: "12px", color: "#555" },
+  title: {
+    fontWeight: "bold",
+    textDecoration: "underline",
+    cursor: "pointer",
+  },
+  username: { color: "black", textDecoration: "underline" },
   errorMessage: { color: "red", fontWeight: "bold" },
 };
 
