@@ -2,12 +2,12 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import Button from "../components/Button";
 
-const PasswordResetSuccess = () => {
+const EmailResetSuccess = () => {
   const navigate = useNavigate();
 
   return (
     <div style={styles.container}>
-      <h1>パスワード再設定成功画面</h1>
+      <h1>メールアドレス再設定成功画面</h1>
       <Button onClick={() => navigate("/log-in")} styleType="primary">
         ログイン画面へ
       </Button>
@@ -16,10 +16,7 @@ const PasswordResetSuccess = () => {
 };
 
 const styles = {
-  container: {
-    textAlign: "center",
-    marginTop: "50px",
-  },
+  container: { padding: "20px", textAlign: "center" },
 };
 
-export default PasswordResetSuccess;
+export default EmailResetSuccess;
