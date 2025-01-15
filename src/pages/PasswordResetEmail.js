@@ -67,7 +67,7 @@ const PasswordResetEmail = () => {
       {/* エラーメッセージの表示 */}
       <ErrorContainer error={message} />
       <Button onClick={handleSendEmail} styleType="primary">
-        メールを送信する
+        メールを送信
       </Button>
     </div>
   );
@@ -85,8 +85,8 @@ const styles = {
     padding: "8px",
     fontSize: "16px",
     marginBottom: "10px",
-    borderRadius: "4px",
-    border: "1px solid #ccc",
+    borderRadius: "10px",
+    border: "2px solid #000",
   },
   errorMessage: {
     color: "red",

@@ -119,8 +119,8 @@ const styles = {
     padding: "8px",
     fontSize: "16px",
     marginBottom: "10px",
-    borderRadius: "4px",
-    border: "1px solid #ccc",
+    borderRadius: "10px",
+    border: "2px solid #000", // 枠線を黒くする
   },
   a: {
     color: "blue",
