@@ -32,7 +32,6 @@ const styles = {
     height: "auto",  // 高さを自動で調整
     marginBottom: "20px",  // ロゴと次の要素の間隔を調整
   },
- 
 };
 
 export default Start;

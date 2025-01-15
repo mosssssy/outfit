@@ -153,7 +153,6 @@ const SignUp = () => {
     ))}
   </div>
 </div>
-
   );
 };
 
