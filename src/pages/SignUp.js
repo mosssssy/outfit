@@ -73,72 +73,48 @@ const SignUp = () => {
       />
       {/* PNG画像を上に配置 */}
       <img src={logo} alt="App Logo" style={styles.logo} />
-  <form style={{ maxWidth: '400px', margin: '0 auto', padding: '20px' }} onSubmit={handleSubmit}>
-    <div style={{ marginBottom: '20px' }}>
-      <label style={{ display: 'block', textAlign: 'left', marginBottom: '10px' }}>メールアドレス</label>
+      <div style={styles.formContainer}></div>
+      <h1>新規登録</h1>
+  
+    <form onSubmit={handleSubmit}>
+        <div>
+        
       <input
         type="email"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
         placeholder="メールアドレス"
-        style={{
-          width: '100%',
-          padding: '12px',
-          border: '2px solid #000',
-          borderRadius: '10px',
-        }}
+        style={styles.input}
         required
       />
     </div>
-    <div style={{ marginBottom: '20px' }}>
-      <label style={{ display: 'block', textAlign: 'left', marginBottom: '10px' }}>パスワード</label>
+    <div>
+     
       <input
         type="password"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
         placeholder="パスワード (英数字6文字以上)"
-        style={{
-          width: '100%',
-          padding: '12px',
-          border: '2px solid #000',
-          borderRadius: '10px',
-        }}
+        style={styles.input}
         required
       />
     </div>
-    <div style={{ marginBottom: '20px' }}>
-      <label style={{ display: 'block', textAlign: 'left', marginBottom: '10px' }}>ユーザーネーム</label>
+    <div>
       <input
         type="text"
         value={username}
         onChange={(e) => setUsername(e.target.value)}
         placeholder="ユーザーネーム（8文字以内）"
-        style={{
-          width: '100%',
-          padding: '12px',
-          border: '2px solid #000',
-          borderRadius: '10px',
-        }}
+        style={styles.input}
         required
       />
     </div>
 
     <p style={{ color: 'red', marginBottom: '20px' }}>{error}</p>
 
-    <button
-      type="submit"
-      style={{
-        width: '100%',
-        padding: '15px',
-        backgroundColor: '#000',
-        color: '#fff',
-        border: 'none',
-        borderRadius: '10px',
-        fontSize: '1.2rem',
-      }}
-    >
-      登録する
-    </button>
+    <Button type="submit" styleType="primary">
+          新規登録
+        </Button>
   </form>
 
   
@@ -171,6 +147,13 @@ const styles = {
     },
     formContainer: {
       marginTop: "10px", // フォームの間隔を微調整
+    },
+    label: {
+      display: "block", // ブロック要素にして上に配置
+      marginBottom: "5px", // ラベルと入力ボックスの間の余白
+      fontSize: "14px", // ラベルのフォントサイズ
+      textAlign: "left", // ラベル文字を左揃え
+      color: "#333", // ラベルの文字色
     },
 };
 
