@@ -4,7 +4,7 @@ import React from "react";
 const Button = ({ onClick, children, styleType = "primary" }) => {
   const buttonStyles = {
     primary: {
-      backgroundColor: "#007bff",
+      backgroundColor: "#000000",
       color: "white",
       border: "none",
       borderRadius: "5px",
@@ -14,7 +14,7 @@ const Button = ({ onClick, children, styleType = "primary" }) => {
       fontSize: "16px",
     },
     secondary: {
-      backgroundColor: "#6c757d",
+      backgroundColor: "#000000",
       color: "white",
       border: "none",
       borderRadius: "5px",

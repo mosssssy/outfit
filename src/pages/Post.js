@@ -125,7 +125,7 @@ function Post() {
 const styles = {
   container: {
     display: "flex",
-    padding: "20px",
+    padding: "20px 40px",
   },
   leftSide: {
     position: "relative",

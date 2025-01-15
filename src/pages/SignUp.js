@@ -6,6 +6,7 @@ import { auth } from "../firebase";
 import Button from "../components/Button";
 import BackLink from "../components/BackLink_";
 import ErrorContainer from "../components/ErrorContainer_";
+import logo from "../outfit_logo_black.png"; // PNGの透過画像をインポート
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -64,19 +65,14 @@ const SignUp = () => {
   };
 
   return (
-    <div
-      style={{
-        height: "100vh",
-        textAlign: "center",
-        backgroundColor: "#ffffff",
-      }}
-    >
-      <h1 style={{ marginTop: "40px", fontSize: "3rem", fontWeight: "bold" }}>
-        Out Fit
-      </h1>
-      <p style={{ marginBottom: "40px" }}>
-        あなたらしい色合わせを見つけましょう
-      </p>
+    <div style={styles.mainContainer}>
+      <BackLink
+        onClick={() => {
+          navigate("/");
+        }}
+      />
+      {/* PNG画像を中央に配置 */}
+      <img src={logo} alt="App Logo" style={styles.logo} />
 
       <form
         style={{ maxWidth: "400px", margin: "0 auto", padding: "20px" }}
@@ -156,29 +152,10 @@ const SignUp = () => {
         </div>
 
         <ErrorContainer error={error}>{error}</ErrorContainer>
-        <Button type="submit" styleType="signup">
+        <Button type="submit" styleType="primary">
           登録する
         </Button>
       </form>
-
-      {/* <div
-        style={{ marginTop: "40px", display: "flex", justifyContent: "center" }}
-      >
-        {[...Array(8)].map((_, index) => (
-          <div
-            key={index}
-            style={{
-              width: "50px",
-              height: "50px",
-              backgroundColor: "#333",
-              margin: "5px",
-              borderRadius: "5px",
-            }}
-          >
-            <span style={{ color: "#fff", lineHeight: "50px" }}>♀</span>
-          </div>
-        ))}
-      </div> */}
     </div>
   );
 };
@@ -197,10 +174,10 @@ const styles = {
     borderRadius: "4px",
     border: "1px solid #ccc",
   },
-  errorMessage: {
-    color: "red",
-    marginTop: "20px",
-    fontWeight: "bold",
+  logo: {
+    width: "300px", // ロゴサイズの調整
+    height: "auto",
+    marginBottom: "10px", // ロゴと次の要素の間隔
   },
 };
 

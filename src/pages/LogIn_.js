@@ -6,6 +6,7 @@ import { auth } from "../firebase"; // Firebase設定をインポート
 import Button from "../components/Button";
 import BackLink from "../components/BackLink_";
 import ErrorContainer from "../components/ErrorContainer_";
+import logo from "../outfit_logo_black.png"; // PNGの透過画像をインポート
 
 const LogIn = () => {
   const navigate = useNavigate();
@@ -66,7 +67,12 @@ const LogIn = () => {
           navigate("/");
         }}
       />
-      <h1>ログイン画面</h1>
+      {/* PNG画像を上に配置 */}
+      <img src={logo} alt="App Logo" style={styles.logo} />
+      {/* ログインフォームを中央に配置 */}
+      <div style={styles.formContainer}></div>
+      
+      <h1>ログイン</h1>
       <form onSubmit={handleSubmit}>
         <div>
           <input
@@ -104,7 +110,8 @@ const LogIn = () => {
 const styles = {
   container: {
     textAlign: "center",
-    margin: "50px",
+    margin: "20px",
+    marginBottom: "20px", // フォーム下の余白も減らす
   },
   input: {
     width: "30%",
@@ -118,6 +125,14 @@ const styles = {
   a: {
     color: "blue",
     textDecoration: "underline",
+  },
+  logo: {
+    width: "300px",  // ロゴサイズの調整
+    height: "auto",
+    marginBottom: "10px",  // ロゴと次の要素の間隔
+  },
+  formContainer: {
+    marginTop: "10px", // フォームの間隔を微調整
   },
 };
 

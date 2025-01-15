@@ -187,7 +187,7 @@ function Home() {
 
     return (
       <div
-        onClick={() => handleFashionClick(fashionId)}
+        onClick={(e) => handleFashionClick(e, fashionId)}
         style={styles.imageContainer}
       >
         <img src={modelFashion} alt="Model" style={styles.modelImage} />
@@ -205,8 +205,7 @@ function Home() {
         {/* ハートマークを追加 */}
         <FaHeart
           onClick={(e) => {
-            e.stopPropagation(); // 親要素のクリックイベントを防止
-            toggleLike(fashionId);
+            handleHeartClick(e, fashionId);
           }}
           style={{
             ...styles.heartIcon,
@@ -219,8 +218,19 @@ function Home() {
     );
   };
 
-  const handleFashionClick = (fashionId) => {
-    navigate(`/fashion-detail/${fashionId}`); // 選択された投稿の詳細ページに遷移
+  const handleFashionClick = (e, fashionId) => {
+    e.preventDefault(); // これで再読み込みを防ぎます
+    navigate(`/fashion-detail/${fashionId}`); // 遷移のための処理
+  };
+
+  const handleHeartClick = (e, fashionId) => {
+    e.stopPropagation(); // 親要素のクリックイベントを防止
+    toggleLike(fashionId);
+  };
+
+  const handleUserClick = (e, userId) => {
+    e.preventDefault(); // これで再読み込みを防ぎます
+    navigate(`/user-detail/${userId}`); // 遷移のための処理
   };
 
   return (
@@ -233,16 +243,19 @@ function Home() {
               <div key={fashion.id} style={styles.fashionCard}>
                 {renderProcessedImages(fashion.processedFashions, fashion.id)}
                 <p
-                  onClick={() => handleFashionClick(fashion.id)}
+                  onClick={(e) => handleFashionClick(e, fashion.id)}
                   style={styles.title}
                 >
                   {fashion.title.length > 10
                     ? `${fashion.title.slice(0, 10)}…`
                     : fashion.title}
                 </p>
-                <Link to="/user-detail" style={styles.username}>
+                <p
+                  onClick={(e) => handleUserClick(e, fashion.userID)}
+                  style={styles.name}
+                >
                   {users[fashion.userID] || "Unknown User"}
-                </Link>
+                </p>
               </div>
             ))
           : !loading && <p>表示可能なファッションがありません</p>}
@@ -311,7 +324,7 @@ const styles = {
     textDecoration: "underline",
     cursor: "pointer",
   },
-  username: { color: "black", textDecoration: "underline" },
+  name: { color: "black", textDecoration: "underline", cursor: "pointer" },
   errorMessage: { color: "red", fontWeight: "bold" },
   customToast: {
     backgroundColor: "#8a8787", // 背景色を#8a8787に設定

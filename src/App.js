@@ -87,7 +87,7 @@ const App = () => {
             element={<FashionDetail />}
           />{" "}
           {/* ファッション詳細画面 */}
-          <Route path="/user-detail" element={<UserDetail />} />{" "}
+          <Route path="/user-detail/:userId" element={<UserDetail />} />{" "}
           {/* ユーザー詳細画面 */}
           <Route path="/search" element={<Search />} /> {/* 検索結果画面 */}
           <Route path="/my-page" element={<MyPage />} /> {/* マイページ画面 */}
