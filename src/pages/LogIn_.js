@@ -137,33 +137,6 @@ function LogIn() {
         </button>
       </form>
       <div>
-
-//       {/* PNG画像を上に配置 */}
-//       <img src={logo} alt="App Logo" style={styles.logo} />
-//       {/* ログインフォームを中央に配置 */}
-//       <div style={styles.formContainer}></div>
-      
-//       <h1>ログイン</h1>
-//       <form onSubmit={handleSubmit}>
-//         <div>
-//           <input
-//             type="email"
-//             value={email}
-//             onChange={(e) => setEmail(e.target.value)} // メールアドレスの状態を更新
-//             placeholder="メールアドレス"
-//             style={styles.input}
-//           />
-//         </div>
-//         <div>
-//           <input
-//             type="password"
-//             value={password}
-//             onChange={(e) => setPassword(e.target.value)} // パスワードの状態を更新
-//             placeholder="パスワード"
-//             style={styles.input}
-//           />
-//         </div>
-//         <div>
           <Link to="/password-reset-email" style={styles.a}>
             パスワードが分からない
           </Link>{" "}
@@ -199,33 +172,33 @@ function LogIn() {
 //   );
 // };
 
-// const styles = {
-//   container: {
-//     textAlign: "center",
-//     margin: "20px",
-//     marginBottom: "20px", // フォーム下の余白も減らす
-//   },
-//   input: {
-//     width: "30%",
-//     minWidth: "240px",
-//     padding: "8px",
-//     fontSize: "16px",
-//     marginBottom: "10px",
-//     borderRadius: "4px",
-//     border: "1px solid #ccc",
-//   },
-//   a: {
-//     color: "blue",
-//     textDecoration: "underline",
-//   },
-//   logo: {
-//     width: "300px",  // ロゴサイズの調整
-//     height: "auto",
-//     marginBottom: "10px",  // ロゴと次の要素の間隔
-//   },
-//   formContainer: {
-//     marginTop: "10px", // フォームの間隔を微調整
-//   },
-// };
+const styles = {
+  container: {
+    textAlign: "center",
+    margin: "20px",
+    marginBottom: "20px", // フォーム下の余白も減らす
+  },
+  input: {
+    width: "30%",
+    minWidth: "240px",
+    padding: "8px",
+    fontSize: "16px",
+    marginBottom: "10px",
+    borderRadius: "10px",
+    border: "2px solid #000", // 枠線を黒くする
+  },
+  a: {
+    color: "blue",
+    textDecoration: "underline",
+  },
+  logo: {
+    width: "300px",  // ロゴサイズの調整
+    height: "auto",
+    marginBottom: "10px",  // ロゴと次の要素の間隔
+  },
+  formContainer: {
+    marginTop: "10px", // フォームの間隔を微調整
+  },
+};
 
 export default LogIn;
