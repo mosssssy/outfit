@@ -8,7 +8,8 @@ import BackLink from "../components/BackLink_";
 import ErrorContainer from "../components/ErrorContainer_";
 import logo from "../outfit_logo_black.png"; // PNGの透過画像をインポート
 
-const LogIn = () => {
+function LogIn() {
+  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
 
   // useStateでメールアドレス、パスワード、エラーメッセージを管理
@@ -71,7 +72,7 @@ const LogIn = () => {
       <img src={logo} alt="App Logo" style={styles.logo} />
       {/* ログインフォームを中央に配置 */}
       <div style={styles.formContainer}></div>
-      
+
       <h1>ログイン</h1>
       <form onSubmit={handleSubmit}>
         <div>
@@ -105,12 +106,12 @@ const LogIn = () => {
       </form>
     </div>
   );
-};
+}
 
 const styles = {
   container: {
     textAlign: "center",
-    margin: "20px",
+    margin: "40px",
     marginBottom: "20px", // フォーム下の余白も減らす
   },
   input: {
@@ -127,9 +128,9 @@ const styles = {
     textDecoration: "underline",
   },
   logo: {
-    width: "300px",  // ロゴサイズの調整
+    width: "300px", // ロゴサイズの調整
     height: "auto",
-    marginBottom: "10px",  // ロゴと次の要素の間隔
+    marginBottom: "10px", // ロゴと次の要素の間隔
   },
   formContainer: {
     marginTop: "10px", // フォームの間隔を微調整
