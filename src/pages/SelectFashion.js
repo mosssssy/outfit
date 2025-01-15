@@ -5,6 +5,9 @@ import tops from "../components/fashionList/TopsList";
 import shoes from "../components/fashionList/ShoesList";
 import hairs from "../components/fashionList/HairsList";
 import Button from "../components/Button";
+import ErrorContainer from "../components/ErrorContainer_";
+import MarginBoxHeight from "../components/MarginBox";
+import NextLink from "../components/NextLink";
 
 // 初期選択ファッション
 const initialFashions = {
@@ -104,20 +107,28 @@ function FashionSelector() {
 
       {/* 右側：タブと画像リスト */}
       <div style={styles.rightSide}>
+        <NextLink onClick={handleSelectColorPage} isHeaderPresent={true} />
         <h2>アイテムを選ぶ</h2>
-        <TabButtons activeTab={activeTab} onTabClick={setActiveTab} />
 
+        <MarginBoxHeight sizeType="medium" />
+
+        <ErrorContainer
+          error={error}
+          sizeType="small"
+          justifyContentType="left"
+        >
+          {error}
+        </ErrorContainer>
+
+        <MarginBoxHeight sizeType="medium" />
+
+        <TabButtons activeTab={activeTab} onTabClick={setActiveTab} />
+        <MarginBoxHeight sizeType="small" />
         <FashionList
           Fashions={getTabContent()}
           selectedFashion={selectedFashions[activeTab]}
           onFashionClick={handleFashionClick}
         />
-
-        {error && <ErrorMessage message={error} />}
-
-        <Button onClick={handleSelectColorPage} styleType="primary">
-          Go to Select Color Page
-        </Button>
       </div>
     </div>
   );
@@ -166,11 +177,6 @@ function FashionList({ Fashions, selectedFashion, onFashionClick }) {
   );
 }
 
-// エラーメッセージコンポーネント
-function ErrorMessage({ message }) {
-  return <p style={styles.errorMessage}>{message}</p>;
-}
-
 // スタイルオブジェクト
 const styles = {
   mainContainer: {
@@ -216,20 +222,16 @@ const styles = {
     cursor: "pointer",
   },
   FashionList: {
-    display: "flex",
+    // display: "flex",
     flexWrap: "wrap",
     justifyContent: "space-between",
   },
   FashionItem: {
     width: "48%",
-    maxWidth: "200px",
-    marginBottom: "10px",
+    maxWidth: "160px",
+    marginBottom: "20px",
+    marginRight: "10px",
     cursor: "pointer",
-  },
-  errorMessage: {
-    color: "red",
-    marginTop: "20px",
-    fontWeight: "bold",
   },
 };
 

@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import Button from "../components/Button";
+import BackLinkandNextLink from "../components/BackLinkandNextLink";
 
 // カラー変換のヘルパー関数
 const rgbToHex = (r, g, b) =>
@@ -136,6 +137,11 @@ const ColorSelector = () => {
 
       {/* 右側：カラーセレクターとカテゴリオプション */}
       <div style={styles.rightContainer}>
+        <BackLinkandNextLink
+          backOnClick={handleBack}
+          nextOnClick={handlePost}
+          isHeaderPresent={true}
+        />
         <h2>色を選ぶ</h2>
         {["hairs", "tops", "bottoms", "shoes"].map((category) => (
           <div key={category} style={styles.colorPickerContainer}>
@@ -155,12 +161,6 @@ const ColorSelector = () => {
             />
           </div>
         ))}
-        <Button onClick={handlePost} styleType="primary">
-          Go to Post Page
-        </Button>
-        <Button onClick={handleBack} styleType="secondary">
-          Back to Select Fashion Page
-        </Button>
         <div style={styles.helpSection}>
           <p>困ったときは…</p>
           <ul>
@@ -223,6 +223,7 @@ const styles = {
   rightContainer: {
     marginLeft: "20px",
     flex: 1,
+    position: "relative",
   },
   colorPickerContainer: {
     display: "flex",

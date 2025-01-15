@@ -3,6 +3,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { getAuth } from "firebase/auth";
 import { getFirestore, doc, setDoc } from "firebase/firestore";
 import Button from "../components/Button";
+import BackLink from "../components/BackLink_";
 
 const categoriesOrder = ["shoes", "bottoms", "hairs", "tops"];
 
@@ -43,7 +44,7 @@ function Post() {
       const user = auth.currentUser;
       if (!user) throw new Error("ユーザーが認証されていません");
 
-      const docRef = doc(firestore, "posts", `${user.uid}_${Date.now()}`);
+      const docRef = doc(firestore, "fashions", `${user.uid}_${Date.now()}`);
       const postData = {
         title,
         description,
@@ -90,7 +91,10 @@ function Post() {
         {renderProcessedImages()}
       </div>
       <div style={styles.rightSide}>
-        <h2>Post Page</h2>
+        <BackLink
+          onClick={() => navigate("/select-color", { state: location.state })}
+        />
+        <h2>新規投稿</h2>
         <input
           type="text"
           name="title"
@@ -111,13 +115,7 @@ function Post() {
         <div style={styles.countText}>{description.length}/100</div>
         {errorMessage && <div style={styles.errorMessage}>{errorMessage}</div>}
         <Button onClick={handleSubmit} styleType="primary">
-          Submit
-        </Button>
-        <Button
-          onClick={() => navigate("/select-color", { state: location.state })}
-          styleType="secondary"
-        >
-          Back
+          投稿
         </Button>
       </div>
     </div>
@@ -153,7 +151,9 @@ const styles = {
   },
   rightSide: {
     marginLeft: "20px",
+    marginRight: "20px",
     flex: 1,
+    position: "relative",
   },
   input: {
     width: "100%",

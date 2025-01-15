@@ -14,7 +14,7 @@ const Button = ({ onClick, children, styleType = "primary" }) => {
       fontSize: "16px",
     },
     secondary: {
-      backgroundColor: "#000000",
+      backgroundColor: "#8A8787",
       color: "white",
       border: "none",
       borderRadius: "5px",
@@ -24,7 +24,7 @@ const Button = ({ onClick, children, styleType = "primary" }) => {
       fontSize: "16px",
     },
     danger: {
-      backgroundColor: "#000000",
+      backgroundColor: "#ee2a7b",
       color: "white",
       border: "none",
       borderRadius: "5px",
@@ -34,8 +34,8 @@ const Button = ({ onClick, children, styleType = "primary" }) => {
       fontSize: "16px",
     },
     header: {
-      backgroundColor: "#000000",
-      color: "#000000",
+      backgroundColor: "#fff",
+      color: "#000",
       padding: "10px 20px",
       border: "none",
       borderRadius: "5px",
