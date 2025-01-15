@@ -3,10 +3,10 @@ import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom"; // Linkコンポーネントをインポート
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase"; // Firebase設定をインポート
-import Button from "../components/Button";
-import BackLink from "../components/BackLink_";
 import ErrorContainer from "../components/ErrorContainer_";
 import logo from "../outfit_logo_black.png"; // PNGの透過画像をインポート
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 
 function LogIn() {
   const [showPassword, setShowPassword] = useState(false);
@@ -60,63 +60,84 @@ function LogIn() {
       setError(errorMessage);
     }
   };
+
   return (
-    <div style={{ height: '100vh', textAlign: 'center', backgroundColor: '#ffffff' }}>
+    <div
+      style={{
+        height: "100vh",
+        textAlign: "center",
+        backgroundColor: "#ffffff",
+      }}
+    >
       {/* ここにロゴが入る */}
-//     <div style={styles.container}>
       <BackLink
         onClick={() => {
           navigate("/");
         }}
       />
-      <form style={{ maxWidth: '400px', margin: '0 auto', padding: '20px' }}>
-        <div style={{ marginBottom: '20px' }}>
-          <label style={{ display: 'block', textAlign: 'left', marginBottom: '10px' }}>メールアドレス</label>
-          <input
-           type="email"
-           value={email}
-           onChange={(e) => setEmail(e.target.value)} // メールアドレスの状態を更新
-           placeholder="メールアドレス"
-          
+      <form
+        style={{ maxWidth: "400px", margin: "0 auto", padding: "20px" }}
+        onSubmit={handleSubmit}
+      >
+        <div style={{ marginBottom: "20px" }}>
+          <label
             style={{
-              width: '100%',
-              padding: '12px',
-              border: '2px solid #000',
-              borderRadius: '10px',
+              display: "block",
+              textAlign: "left",
+              marginBottom: "10px",
+            }}
+          >
+            メールアドレス
+          </label>
+          <input
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)} // メールアドレスの状態を更新
+            placeholder="メールアドレス"
+            style={{
+              width: "100%",
+              padding: "12px",
+              border: "2px solid #000",
+              borderRadius: "10px",
             }}
           />
         </div>
-        <div style={{ marginBottom: '20px', position: 'relative' }}>
-          <label style={{ display: 'block', textAlign: 'left', marginBottom: '10px' }}>パスワード</label>
+        <div style={{ marginBottom: "20px", position: "relative" }}>
+          <label
+            style={{
+              display: "block",
+              textAlign: "left",
+              marginBottom: "10px",
+            }}
+          >
+            パスワード
+          </label>
           <input
-         
-          value={password}
-          onChange={(e) => setPassword(e.target.value)} // パスワードの状態を更新
-          
-            type={showPassword ? 'text' : 'password'}
+            value={password}
+            onChange={(e) => setPassword(e.target.value)} // パスワードの状態を更新
+            type={showPassword ? "text" : "password"}
             placeholder="パスワード (英数字6文字以上)"
             style={{
-              width: '100%',
-              padding: '12px',
-              border: '2px solid #000',
-              borderRadius: '10px',
+              width: "100%",
+              padding: "12px",
+              border: "2px solid #000",
+              borderRadius: "10px",
             }}
           />
-          <i
-  className={`fas ${showPassword ? 'fa-eye-slash' : 'fa-eye'}`}
-  onClick={() => setShowPassword(!showPassword)}
-  style={{
-    position: 'absolute',
-    right: '10px',
-    top: '55%',
-    cursor: 'pointer',
-    fontSize: '24px',  // アイコンの大きさを調整
-    color: '#333',
-  }}
-></i>
-
+          <FontAwesomeIcon
+            icon={showPassword ? faEyeSlash : faEye}
+            onClick={() => setShowPassword(!showPassword)}
+            style={{
+              position: "absolute",
+              right: "10px",
+              top: "55%",
+              cursor: "pointer",
+              fontSize: "24px", // アイコンの大きさを調整
+              color: "#333",
+            }}
+          />
         </div>
-        <p style={{ color: 'red', marginBottom: '20px' }}>
+        <p style={{ color: "red", marginBottom: "20px" }}>
           有効なメールアドレスを入力してください。
           <br />
           パスワードは英数字6文字以上で設定してください。
@@ -124,39 +145,40 @@ function LogIn() {
         <button
           type="submit"
           style={{
-            width: '100%',
-            padding: '15px',
-            backgroundColor: '#000',
-            color: '#fff',
-            border: 'none',
-            borderRadius: '10px',
-            fontSize: '1.2rem',
+            width: "100%",
+            padding: "15px",
+            backgroundColor: "#000",
+            color: "#fff",
+            border: "none",
+            borderRadius: "10px",
+            fontSize: "1.2rem",
           }}
         >
           次へ
         </button>
       </form>
       <div>
-          <Link to="/password-reset-email" style={styles.a}>
-            パスワードが分からない
-          </Link>{" "}
-        </div>
-        <ErrorContainer error={error}>{error}</ErrorContainer>
-        {/* エラーメッセージを表示 */}
+        <Link to="/password-reset-email" style={styles.a}>
+          パスワードが分からない
+        </Link>{" "}
+      </div>
+      <ErrorContainer error={error}>{error}</ErrorContainer>
 
-      <div style={{ marginTop: '40px', display: 'flex', justifyContent: 'center' }}>
+      <div
+        style={{ marginTop: "40px", display: "flex", justifyContent: "center" }}
+      >
         {[...Array(8)].map((_, index) => (
           <div
             key={index}
             style={{
-              width: '50px',
-              height: '50px',
-              backgroundColor: '#333',
-              margin: '5px',
-              borderRadius: '5px',
+              width: "50px",
+              height: "50px",
+              backgroundColor: "#333",
+              margin: "5px",
+              borderRadius: "5px",
             }}
           >
-            <span style={{ color: '#fff', lineHeight: '50px' }}>♀</span>
+            <span style={{ color: "#fff", lineHeight: "50px" }}>♀</span>
           </div>
         ))}
       </div>
@@ -164,40 +186,10 @@ function LogIn() {
   );
 }
 
-//         <Button type="submit" styleType="primary">
-//           ログイン
-//         </Button>
-//       </form>
-//     </div>
-//   );
-// };
-
 const styles = {
-  container: {
-    textAlign: "center",
-    margin: "20px",
-    marginBottom: "20px", // フォーム下の余白も減らす
-  },
-  input: {
-    width: "30%",
-    minWidth: "240px",
-    padding: "8px",
-    fontSize: "16px",
-    marginBottom: "10px",
-    borderRadius: "10px",
-    border: "2px solid #000", // 枠線を黒くする
-  },
   a: {
     color: "blue",
     textDecoration: "underline",
-  },
-  logo: {
-    width: "300px",  // ロゴサイズの調整
-    height: "auto",
-    marginBottom: "10px",  // ロゴと次の要素の間隔
-  },
-  formContainer: {
-    marginTop: "10px", // フォームの間隔を微調整
   },
 };
 
