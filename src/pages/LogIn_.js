@@ -3,10 +3,13 @@ import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom"; // Linkコンポーネントをインポート
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase"; // Firebase設定をインポート
-import Button from "../components/Button";
-import BackLink from "../components/BackLink_";
 import ErrorContainer from "../components/ErrorContainer_";
 import logo from "../outfit_logo_black.png"; // PNGの透過画像をインポート
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+import BackLink from "../components/BackLink_";
+import Button from "../components/Button";
+import MarginBoxHeight from "../components/MarginBox";
 
 function LogIn() {
   const [showPassword, setShowPassword] = useState(false);
@@ -62,7 +65,14 @@ function LogIn() {
   };
 
   return (
-    <div style={styles.container}>
+    <div
+      style={{
+        height: "100vh",
+        textAlign: "center",
+        backgroundColor: "#ffffff",
+        padding: "40px",
+      }}
+    >
       <BackLink
         onClick={() => {
           navigate("/");
@@ -70,27 +80,67 @@ function LogIn() {
       />
       {/* PNG画像を上に配置 */}
       <img src={logo} alt="App Logo" style={styles.logo} />
-      {/* ログインフォームを中央に配置 */}
-      <div style={styles.formContainer}></div>
 
-      <h1>ログイン</h1>
-      <form onSubmit={handleSubmit}>
-        <div>
+      <form
+        style={{ maxWidth: "400px", margin: "0 auto", padding: "20px" }}
+        onSubmit={handleSubmit}
+      >
+        <div style={{ marginBottom: "20px" }}>
+          <label
+            style={{
+              display: "block",
+              textAlign: "left",
+              marginBottom: "10px",
+            }}
+          >
+            メールアドレス
+          </label>
           <input
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)} // メールアドレスの状態を更新
             placeholder="メールアドレス"
-            style={styles.input}
+            style={{
+              width: "100%",
+              padding: "12px",
+              border: "2px solid #000",
+              borderRadius: "10px",
+            }}
           />
         </div>
-        <div>
+        <div style={{ marginBottom: "20px", position: "relative" }}>
+          <label
+            style={{
+              display: "block",
+              textAlign: "left",
+              marginBottom: "10px",
+            }}
+          >
+            パスワード
+          </label>
           <input
-            type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)} // パスワードの状態を更新
-            placeholder="パスワード"
-            style={styles.input}
+            type={showPassword ? "text" : "password"}
+            placeholder="パスワード (英数字6文字以上)"
+            style={{
+              width: "100%",
+              padding: "12px",
+              border: "2px solid #000",
+              borderRadius: "10px",
+            }}
+          />
+          <FontAwesomeIcon
+            icon={showPassword ? faEyeSlash : faEye}
+            onClick={() => setShowPassword(!showPassword)}
+            style={{
+              position: "absolute",
+              right: "10px",
+              top: "55%",
+              cursor: "pointer",
+              fontSize: "24px", // アイコンの大きさを調整
+              color: "#333",
+            }}
           />
         </div>
         <div>
@@ -99,7 +149,7 @@ function LogIn() {
           </Link>{" "}
         </div>
         <ErrorContainer error={error}>{error}</ErrorContainer>
-        {/* エラーメッセージを表示 */}
+        <MarginBoxHeight sizeType="medium" />
         <Button type="submit" styleType="primary">
           ログイン
         </Button>
@@ -109,20 +159,6 @@ function LogIn() {
 }
 
 const styles = {
-  container: {
-    textAlign: "center",
-    margin: "40px",
-    marginBottom: "20px", // フォーム下の余白も減らす
-  },
-  input: {
-    width: "30%",
-    minWidth: "240px",
-    padding: "8px",
-    fontSize: "16px",
-    marginBottom: "10px",
-    borderRadius: "4px",
-    border: "1px solid #ccc",
-  },
   a: {
     color: "blue",
     textDecoration: "underline",
@@ -131,9 +167,6 @@ const styles = {
     width: "300px", // ロゴサイズの調整
     height: "auto",
     marginBottom: "10px", // ロゴと次の要素の間隔
-  },
-  formContainer: {
-    marginTop: "10px", // フォームの間隔を微調整
   },
 };
 

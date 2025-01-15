@@ -65,13 +65,20 @@ const SignUp = () => {
   };
 
   return (
-    <div style={styles.mainContainer}>
+    <div
+      style={styles.container}
+      // style={{
+      //   height: "100vh",
+      //   textAlign: "center",
+      //   backgroundColor: "#ffffff",
+      // }}
+    >
       <BackLink
         onClick={() => {
           navigate("/");
         }}
       />
-      {/* PNG画像を中央に配置 */}
+      {/* PNG画像を上に配置 */}
       <img src={logo} alt="App Logo" style={styles.logo} />
 
       <form
@@ -99,7 +106,6 @@ const SignUp = () => {
               border: "2px solid #000",
               borderRadius: "10px",
             }}
-            required
           />
         </div>
         <div style={{ marginBottom: "20px" }}>
@@ -152,18 +158,18 @@ const SignUp = () => {
         </div>
 
         <ErrorContainer error={error}>{error}</ErrorContainer>
-        <Button type="submit" styleType="primary">
-          登録する
-        </Button>
+
+        <Button type="submit">登録する</Button>
       </form>
     </div>
   );
 };
 
 const styles = {
-  mainContainer: {
+  container: {
     textAlign: "center",
-    margin: "50px",
+    margin: "20px",
+    marginBottom: "20px", // フォーム下の余白も減らす
   },
   input: {
     width: "30%",
@@ -171,13 +177,24 @@ const styles = {
     padding: "8px",
     fontSize: "16px",
     marginBottom: "10px",
-    borderRadius: "4px",
-    border: "1px solid #ccc",
+    borderRadius: "10px",
+    border: "2px solid #000", // 枠線を黒くする
   },
+
   logo: {
     width: "300px", // ロゴサイズの調整
     height: "auto",
     marginBottom: "10px", // ロゴと次の要素の間隔
+  },
+  formContainer: {
+    marginTop: "10px", // フォームの間隔を微調整
+  },
+  label: {
+    display: "block", // ブロック要素にして上に配置
+    marginBottom: "5px", // ラベルと入力ボックスの間の余白
+    fontSize: "14px", // ラベルのフォントサイズ
+    textAlign: "left", // ラベル文字を左揃え
+    color: "#333", // ラベルの文字色
   },
 };
 

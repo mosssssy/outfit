@@ -11,6 +11,7 @@ import {
   query,
   where,
 } from "firebase/firestore"; // Firestoreインポート
+import logoImage from "../outfit_logo_white.png"; // ロゴ画像をインポート
 
 const Header = () => {
   const navigate = useNavigate();
@@ -87,9 +88,8 @@ const Header = () => {
 
   return (
     <header style={styles.header}>
-      {/* PNG画像を中央に配置 */}
-      <Link to="/home">
-        <img src={logo} alt="App Logo" style={styles.logo} />
+      <Link to="/home" style={styles.logo}>
+        OutFit
       </Link>
       <div style={styles.rightContainer}>
         <input
@@ -162,14 +162,17 @@ const styles = {
     color: "#fff",
   },
   logo: {
-    width: "5rem", // 画像の大きさを設定
-    height: "auto", // 高さを自動で調整
+    fontSize: "1.5rem",
+    fontWeight: "bold",
+    textDecoration: "none", // リンクの下線を消す
+    color: "#fff", // ロゴの色を白にする
   },
   rightContainer: {
     display: "flex",
     alignItems: "center",
     position: "relative", // メニューを右側に絶対位置で配置
   },
+  
   searchBar: {
     minWidth: "200px",
     maxWidth: "400px",

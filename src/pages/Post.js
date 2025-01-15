@@ -4,6 +4,8 @@ import { getAuth } from "firebase/auth";
 import { getFirestore, doc, setDoc } from "firebase/firestore";
 import Button from "../components/Button";
 import BackLink from "../components/BackLink_";
+import MarginBoxHeight from "../components/MarginBox";
+import ErrorContainer from "../components/ErrorContainer_";
 
 const categoriesOrder = ["shoes", "bottoms", "hairs", "tops"];
 
@@ -104,6 +106,7 @@ function Post() {
           style={styles.input}
         />
         <div style={styles.countText}>{title.length}/30</div>
+        <MarginBoxHeight />
         <textarea
           name="description"
           value={description}
@@ -113,7 +116,10 @@ function Post() {
           style={styles.textArea}
         />
         <div style={styles.countText}>{description.length}/100</div>
-        {errorMessage && <div style={styles.errorMessage}>{errorMessage}</div>}
+        <MarginBoxHeight />
+        <ErrorContainer error={errorMessage} justifyContentType="left">
+          {errorMessage}
+        </ErrorContainer>
         <Button onClick={handleSubmit} styleType="primary">
           投稿
         </Button>
@@ -156,7 +162,7 @@ const styles = {
     position: "relative",
   },
   input: {
-    width: "100%",
+    width: "80%",
     padding: "8px",
     fontSize: "16px",
     marginBottom: "10px",
@@ -164,7 +170,7 @@ const styles = {
     border: "1px solid #ccc",
   },
   textArea: {
-    width: "100%",
+    width: "80%",
     padding: "8px",
     fontSize: "16px",
     marginBottom: "10px",
@@ -172,7 +178,7 @@ const styles = {
     border: "1px solid #ccc",
   },
   countText: {
-    textAlign: "right",
+    textAlign: "left",
     fontSize: "12px",
     color: "#888",
   },
