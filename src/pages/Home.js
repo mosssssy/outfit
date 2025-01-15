@@ -118,7 +118,7 @@ function Home() {
 
   return (
     <div style={styles.container}>
-      <h1>ホーム画面</h1>
+      <h1>ホーム</h1>
       {error && <div style={styles.errorMessage}>{error}</div>}
       <div style={styles.fashionsContainer}>
         {fashions.length > 0 ? (
