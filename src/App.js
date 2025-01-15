@@ -7,6 +7,7 @@ import {
   useNavigate,
   useLocation,
 } from "react-router-dom";
+import "./App.css";
 import Start from "./pages/Start";
 import SignUp from "./pages/SignUp";
 import LogIn from "./pages/LogIn_"; // エラー回避

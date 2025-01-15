@@ -1,3 +1,8 @@
-* {
-  box-sizing: border-box;
+/* Toastの背景色とアニメーション */
+.custom-toast {
+  background-color: #575757 !important; /* 背景色を#8a8787に設定 */
+  color: #fff !important; /* テキストの色を白に設定 */
+  border-radius: 8px !important; /* 角を丸くする */
+  padding: 10px !important; /* パディングの設定 */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1) !important; /* 少しの影をつける */
 }

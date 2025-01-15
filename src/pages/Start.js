@@ -21,7 +21,7 @@ const Start = () => {
 const styles = {
   container: {
     textAlign: "center",
-    marginTop: "50px",
+    margin: "96px 50px 50px 50px",
   },
 };
 

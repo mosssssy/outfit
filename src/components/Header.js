@@ -37,6 +37,13 @@ const Header = () => {
     navigate("/search", { state: { results: searchResults } }); // 検索結果を`/search`に遷移
   };
 
+  const handleKeyDown = (event) => {
+    if (event.key === "Enter") {
+      // エンターキーが押されたら検索を実行
+      handleSearch();
+    }
+  };
+
   // メニューを表示/非表示にする
   const toggleMenu = () => {
     setMenuVisible((prev) => !prev);
@@ -88,6 +95,7 @@ const Header = () => {
           style={styles.searchBar}
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
+          onKeyDown={handleKeyDown}
         />
 
         <FaSearch
@@ -147,7 +155,7 @@ const styles = {
     justifyContent: "space-between",
     alignItems: "center",
     backgroundColor: "#000",
-    padding: "10px 20px",
+    padding: "16px 24px",
     color: "#fff",
   },
   logo: {

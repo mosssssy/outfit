@@ -78,6 +78,15 @@ const FashionDetail = () => {
     return <p>Loading...</p>;
   }
 
+  const formatText = (text) => {
+    return text.split("\n").map((str, index) => (
+      <span key={index}>
+        {str}
+        <br />
+      </span>
+    ));
+  };
+
   // 作成日時を分まで表示
   const formattedDate = new Date(fashion.timestamp).toLocaleString();
 
@@ -89,8 +98,8 @@ const FashionDetail = () => {
       <div style={styles.rightSide}>
         <h2>{fashion.title}</h2>
         <MarginBoxHeight sizeType="small" />
-        <p>{fashion.description}</p>
-        <MarginBoxHeight sizeType="verysmall" />
+        <p>{formatText(fashion.description)}</p>
+        <MarginBoxHeight sizeType="medium" />
         <ul style={styles.colorList}>
           <li style={styles.colorItem}>
             <span
