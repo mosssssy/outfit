@@ -6,3 +6,7 @@
   padding: 10px !important; /* パディングの設定 */
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1) !important; /* 少しの影をつける */
 }
+/* * {
+  box-sizing: border-box;
+  background-color: #fefffb;
+} */

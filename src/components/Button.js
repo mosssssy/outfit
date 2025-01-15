@@ -4,7 +4,7 @@ import React from "react";
 const Button = ({ onClick, children, styleType = "primary" }) => {
   const buttonStyles = {
     primary: {
-      backgroundColor: "#000000",
+      backgroundColor: "#007bff",
       color: "white",
       border: "none",
       borderRadius: "5px",
@@ -14,7 +14,7 @@ const Button = ({ onClick, children, styleType = "primary" }) => {
       fontSize: "16px",
     },
     secondary: {
-      backgroundColor: "#8a8787",
+      backgroundColor: "#6c757d",
       color: "white",
       border: "none",
       borderRadius: "5px",
@@ -24,7 +24,7 @@ const Button = ({ onClick, children, styleType = "primary" }) => {
       fontSize: "16px",
     },
     danger: {
-      backgroundColor: "#ee2a7b",
+      backgroundColor: "#dc3545",
       color: "white",
       border: "none",
       borderRadius: "5px",
@@ -41,6 +41,15 @@ const Button = ({ onClick, children, styleType = "primary" }) => {
       borderRadius: "5px",
       cursor: "pointer",
       fontWeight: "bold",
+    },
+    signup: {
+      width: "50%",
+      padding: "15px",
+      backgroundColor: "#000",
+      color: "#fff",
+      border: "none",
+      borderRadius: "10px",
+      fontSize: "1.2rem",
     },
     // 他にもボタンのスタイルを追加可能
   };

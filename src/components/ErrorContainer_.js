@@ -52,6 +52,7 @@ const styles = {
   errorContainer: {
     display: "flex",
     alignItems: "center", // 縦位置を中央に揃える
+    marginBottom: "20px",
   },
   errorMessage: {
     color: "#ee2a7b",

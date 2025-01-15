@@ -178,7 +178,7 @@ function MyPage() {
           <FaUser style={styles.userIcon} />
         </div>
         <div style={styles.rightStyle}>
-          <h1 style={styles.name}>{username}</h1>
+          {/* <h1 style={styles.name}>{username}</h1> */}
         </div>
       </div>
       <div style={styles.bottomContainer}>
