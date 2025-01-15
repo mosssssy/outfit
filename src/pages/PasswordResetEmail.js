@@ -5,6 +5,8 @@ import { getAuth, sendPasswordResetEmail } from "firebase/auth";
 import { getFirestore, doc, setDoc } from "firebase/firestore";
 import BackLink from "../components/BackLink_";
 import ErrorContainer from "../components/ErrorContainer_";
+import logo from "../outfit_logo_black.png"; // PNGの透過画像をインポート
+
 
 const PasswordResetEmail = () => {
   const navigate = useNavigate();
@@ -47,7 +49,13 @@ const PasswordResetEmail = () => {
           navigate(-1);
         }}
       />
-      <h1>パスワード再設定用メール送信画面</h1>
+      {/* PNG画像を上に配置 */}
+      <img src={logo} alt="App Logo" style={styles.logo} />
+      {/* パスワード再設定画面を中央に配置 */}
+      <div style={styles.formContainer}></div>
+     
+      <h1>パスワード再設定</h1>
+      <h4>パスワード再設定用メールを送信します。メールアドレスを入力してください。</h4>
       <div>
         <input
           type="email"
@@ -60,7 +68,7 @@ const PasswordResetEmail = () => {
       {/* エラーメッセージの表示 */}
       <ErrorContainer error={message} />
       <Button onClick={handleSendEmail} styleType="primary">
-        パスワード再設定用メールを送信する
+        メールを送信する
       </Button>
     </div>
   );
@@ -70,6 +78,7 @@ const styles = {
   container: {
     textAlign: "center",
     margin: "50px",
+    marginBottom: "20px", // フォーム下の余白も減らす
   },
   input: {
     width: "30%",
@@ -84,6 +93,14 @@ const styles = {
     color: "red",
     marginTop: "20px",
     fontWeight: "bold",
+  },
+  logo: {
+    width: "300px",  // ロゴサイズの調整
+    height: "auto",
+    marginBottom: "10px",  // ロゴと次の要素の間隔
+  },
+  formContainer: {
+    marginTop: "10px", // フォームの間隔を微調整
   },
 };
 

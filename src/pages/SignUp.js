@@ -64,49 +64,95 @@ const SignUp = () => {
   };
 
   return (
-    <div style={styles.mainContainer}>
-      <BackLink
-        onClick={() => {
-          navigate("/");
+    <div style={{ height: '100vh', textAlign: 'center', backgroundColor: '#ffffff' }}>
+  <h1 style={{ marginTop: '40px', fontSize: '3rem', fontWeight: 'bold' }}>Out Fit</h1>
+  <p style={{ marginBottom: '40px' }}>あなたらしい色合わせを見つけましょう</p>
+
+  <form style={{ maxWidth: '400px', margin: '0 auto', padding: '20px' }} onSubmit={handleSubmit}>
+    <div style={{ marginBottom: '20px' }}>
+      <label style={{ display: 'block', textAlign: 'left', marginBottom: '10px' }}>メールアドレス</label>
+      <input
+        type="email"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+        placeholder="メールアドレス"
+        style={{
+          width: '100%',
+          padding: '12px',
+          border: '2px solid #000',
+          borderRadius: '10px',
         }}
+        required
       />
-      <div style={styles.Container}>
-        <h1>新規登録画面</h1>
-        <form onSubmit={handleSubmit}>
-          <div>
-            <input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="メールアドレス"
-              style={styles.input}
-            />
-          </div>
-          <div>
-            <input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              placeholder="パスワード"
-              style={styles.input}
-            />
-          </div>
-          <div>
-            <input
-              type="text"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              placeholder="ユーザーネーム（8文字以内）"
-              style={styles.input}
-            />
-          </div>
-          <ErrorContainer error={error}>{error}</ErrorContainer>
-          <Button type="submit" styleType="primary">
-            登録する
-          </Button>
-        </form>
-      </div>
     </div>
+    <div style={{ marginBottom: '20px' }}>
+      <label style={{ display: 'block', textAlign: 'left', marginBottom: '10px' }}>パスワード</label>
+      <input
+        type="password"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+        placeholder="パスワード (英数字6文字以上)"
+        style={{
+          width: '100%',
+          padding: '12px',
+          border: '2px solid #000',
+          borderRadius: '10px',
+        }}
+        required
+      />
+    </div>
+    <div style={{ marginBottom: '20px' }}>
+      <label style={{ display: 'block', textAlign: 'left', marginBottom: '10px' }}>ユーザーネーム</label>
+      <input
+        type="text"
+        value={username}
+        onChange={(e) => setUsername(e.target.value)}
+        placeholder="ユーザーネーム（8文字以内）"
+        style={{
+          width: '100%',
+          padding: '12px',
+          border: '2px solid #000',
+          borderRadius: '10px',
+        }}
+        required
+      />
+    </div>
+
+    <p style={{ color: 'red', marginBottom: '20px' }}>{error}</p>
+
+    <button
+      type="submit"
+      style={{
+        width: '100%',
+        padding: '15px',
+        backgroundColor: '#000',
+        color: '#fff',
+        border: 'none',
+        borderRadius: '10px',
+        fontSize: '1.2rem',
+      }}
+    >
+      登録する
+    </button>
+  </form>
+
+  <div style={{ marginTop: '40px', display: 'flex', justifyContent: 'center' }}>
+    {[...Array(8)].map((_, index) => (
+      <div
+        key={index}
+        style={{
+          width: '50px',
+          height: '50px',
+          backgroundColor: '#333',
+          margin: '5px',
+          borderRadius: '5px',
+        }}
+      >
+        <span style={{ color: '#fff', lineHeight: '50px' }}>♀</span>
+      </div>
+    ))}
+  </div>
+</div>
   );
 };
 

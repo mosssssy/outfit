@@ -25,6 +25,7 @@ const Button = ({ onClick, children, styleType = "primary" }) => {
     },
     danger: {
       backgroundColor: "#ee2a7b",
+
       color: "white",
       border: "none",
       borderRadius: "5px",
