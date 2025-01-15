@@ -8,7 +8,8 @@ import BackLink from "../components/BackLink_";
 import ErrorContainer from "../components/ErrorContainer_";
 import logo from "../outfit_logo_black.png"; // PNGの透過画像をインポート
 
-const LogIn = () => {
+function LogIn() {
+  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
 
   // useStateでメールアドレス、パスワード、エラーメッセージを管理
@@ -59,53 +60,117 @@ const LogIn = () => {
       setError(errorMessage);
     }
   };
-
   return (
-    <div style={styles.container}>
+    <div style={{ height: '100vh', textAlign: 'center', backgroundColor: '#ffffff' }}>
+      {/* ここにロゴが入る */}
+//     <div style={styles.container}>
       <BackLink
         onClick={() => {
           navigate("/");
         }}
       />
-      {/* PNG画像を上に配置 */}
-      <img src={logo} alt="App Logo" style={styles.logo} />
-      {/* ログインフォームを中央に配置 */}
-      <div style={styles.formContainer}></div>
-      
-      <h1>ログイン</h1>
-      <form onSubmit={handleSubmit}>
-        <div>
+      <form style={{ maxWidth: '400px', margin: '0 auto', padding: '20px' }}>
+        <div style={{ marginBottom: '20px' }}>
+          <label style={{ display: 'block', textAlign: 'left', marginBottom: '10px' }}>メールアドレス</label>
           <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)} // メールアドレスの状態を更新
-            placeholder="メールアドレス"
-            style={styles.input}
+           type="email"
+           value={email}
+           onChange={(e) => setEmail(e.target.value)} // メールアドレスの状態を更新
+           placeholder="メールアドレス"
+          
+            style={{
+              width: '100%',
+              padding: '12px',
+              border: '2px solid #000',
+              borderRadius: '10px',
+            }}
           />
         </div>
-        <div>
+        <div style={{ marginBottom: '20px', position: 'relative' }}>
+          <label style={{ display: 'block', textAlign: 'left', marginBottom: '10px' }}>パスワード</label>
           <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)} // パスワードの状態を更新
-            placeholder="パスワード"
-            style={styles.input}
+         
+          value={password}
+          onChange={(e) => setPassword(e.target.value)} // パスワードの状態を更新
+          
+            type={showPassword ? 'text' : 'password'}
+            placeholder="パスワード (英数字6文字以上)"
+            style={{
+              width: '100%',
+              padding: '12px',
+              border: '2px solid #000',
+              borderRadius: '10px',
+            }}
           />
+          <i
+  className={`fas ${showPassword ? 'fa-eye-slash' : 'fa-eye'}`}
+  onClick={() => setShowPassword(!showPassword)}
+  style={{
+    position: 'absolute',
+    right: '10px',
+    top: '55%',
+    cursor: 'pointer',
+    fontSize: '24px',  // アイコンの大きさを調整
+    color: '#333',
+  }}
+></i>
+
         </div>
-        <div>
+        <p style={{ color: 'red', marginBottom: '20px' }}>
+          有効なメールアドレスを入力してください。
+          <br />
+          パスワードは英数字6文字以上で設定してください。
+        </p>
+        <button
+          type="submit"
+          style={{
+            width: '100%',
+            padding: '15px',
+            backgroundColor: '#000',
+            color: '#fff',
+            border: 'none',
+            borderRadius: '10px',
+            fontSize: '1.2rem',
+          }}
+        >
+          次へ
+        </button>
+      </form>
+      <div>
           <Link to="/password-reset-email" style={styles.a}>
             パスワードが分からない
           </Link>{" "}
         </div>
         <ErrorContainer error={error}>{error}</ErrorContainer>
         {/* エラーメッセージを表示 */}
-        <Button type="submit" styleType="primary">
-          ログイン
-        </Button>
-      </form>
+
+      <div style={{ marginTop: '40px', display: 'flex', justifyContent: 'center' }}>
+        {[...Array(8)].map((_, index) => (
+          <div
+            key={index}
+            style={{
+              width: '50px',
+              height: '50px',
+              backgroundColor: '#333',
+              margin: '5px',
+              borderRadius: '5px',
+            }}
+          >
+            <span style={{ color: '#fff', lineHeight: '50px' }}>♀</span>
+          </div>
+        ))}
+      </div>
     </div>
   );
-};
+}
+
+//         <Button type="submit" styleType="primary">
+//           ログイン
+//         </Button>
+//       </form>
+//     </div>
+//   );
+// };
 
 const styles = {
   container: {

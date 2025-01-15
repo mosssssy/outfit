@@ -94,7 +94,7 @@ function Post() {
         <BackLink
           onClick={() => navigate("/select-color", { state: location.state })}
         />
-        <h2>Post Page</h2>
+        <h2>新規投稿</h2>
         <input
           type="text"
           name="title"
@@ -115,7 +115,7 @@ function Post() {
         <div style={styles.countText}>{description.length}/100</div>
         {errorMessage && <div style={styles.errorMessage}>{errorMessage}</div>}
         <Button onClick={handleSubmit} styleType="primary">
-          Submit
+          投稿
         </Button>
       </div>
     </div>

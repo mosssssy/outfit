@@ -7,6 +7,7 @@ import BackLink from "../components/BackLink_";
 import ErrorContainer from "../components/ErrorContainer_";
 import logo from "../outfit_logo_black.png"; // PNGの透過画像をインポート
 
+
 const PasswordResetEmail = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState(""); // 入力されたメールアドレスを管理
@@ -76,7 +77,7 @@ const PasswordResetEmail = () => {
 const styles = {
   container: {
     textAlign: "center",
-    margin: "20px",
+    margin: "50px",
     marginBottom: "20px", // フォーム下の余白も減らす
   },
   input: {
