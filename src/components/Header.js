@@ -88,8 +88,9 @@ const Header = () => {
 
   return (
     <header style={styles.header}>
-      <Link to="/home" style={styles.logo}>
-        OutFit
+      {/* PNG画像を中央に配置 */}
+      <Link to="/home">
+        <img src={logo} alt="App Logo" style={styles.logo} />
       </Link>
       <div style={styles.rightContainer}>
         <input
@@ -122,7 +123,7 @@ const Header = () => {
             <Link onClick={toggleMenu} to="/my-page" style={styles.menuItem}>
               マイページ
             </Link>
-            <Link
+            {/* <Link
               onClick={toggleMenu}
               to="/follow-list"
               style={styles.menuItem}
@@ -135,7 +136,7 @@ const Header = () => {
               style={styles.menuItem}
             >
               フォロワー一覧
-            </Link>
+            </Link> */}
             <Link onClick={toggleMenu} to="/good-list" style={styles.menuItem}>
               いいねしたファッション
             </Link>
@@ -162,17 +163,15 @@ const styles = {
     color: "#fff",
   },
   logo: {
-    fontSize: "1.5rem",
-    fontWeight: "bold",
-    textDecoration: "none", // リンクの下線を消す
-    color: "#fff", // ロゴの色を白にする
+    width: "5rem", // 画像の大きさを設定
+    height: "auto", // 高さを自動で調整
   },
   rightContainer: {
     display: "flex",
     alignItems: "center",
     position: "relative", // メニューを右側に絶対位置で配置
   },
-  
+
   searchBar: {
     minWidth: "200px",
     maxWidth: "400px",

@@ -260,9 +260,9 @@ function Home() {
           : !loading && <p>表示可能なファッションがありません</p>}
       </div>
       <ToastContainer /> {/* トーストコンテナ */}
-      {lastVisible && !loading && fashions.length >= 20 ? (
+      {lastVisible && !loading && fashions.length >= 10 ? (
         <Button onClick={() => fetchFashions(lastVisible)} styleType="primary">
-          次の20件を表示する
+          次の10件を表示する
         </Button>
       ) : fashions.length > 0 && !loading ? (
         <p>すべての投稿を表示しました</p>

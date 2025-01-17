@@ -7,6 +7,8 @@ import Button from "../components/Button";
 import BackLink from "../components/BackLink_";
 import ErrorContainer from "../components/ErrorContainer_";
 import logo from "../outfit_logo_black.png"; // PNGの透過画像をインポート
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -15,6 +17,7 @@ const SignUp = () => {
   const [password, setPassword] = useState("");
   const [username, setUsername] = useState("");
   const [error, setError] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -65,14 +68,7 @@ const SignUp = () => {
   };
 
   return (
-    <div
-      style={styles.container}
-      // style={{
-      //   height: "100vh",
-      //   textAlign: "center",
-      //   backgroundColor: "#ffffff",
-      // }}
-    >
+    <div style={styles.container}>
       <BackLink
         onClick={() => {
           navigate("/");
@@ -108,7 +104,7 @@ const SignUp = () => {
             }}
           />
         </div>
-        <div style={{ marginBottom: "20px" }}>
+        <div style={{ marginBottom: "20px", position: "relative" }}>
           <label
             style={{
               display: "block",
@@ -119,9 +115,9 @@ const SignUp = () => {
             パスワード
           </label>
           <input
-            type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            type={showPassword ? "text" : "password"}
             placeholder="パスワード (英数字6文字以上)"
             style={{
               width: "100%",
@@ -129,7 +125,19 @@ const SignUp = () => {
               border: "2px solid #000",
               borderRadius: "10px",
             }}
-            required
+          />
+          <FontAwesomeIcon
+            icon={showPassword ? faEyeSlash : faEye}
+            onClick={() => setShowPassword(!showPassword)}
+            style={{
+              position: "absolute",
+              right: "-10px", // フォーム右端からの距離
+              top: "70%", // 親要素の高さの中央に配置
+              transform: "translateY(-50%)", // 垂直方向の中央揃え
+              cursor: "pointer",
+              fontSize: "24px",
+              color: "#333",
+            }}
           />
         </div>
         <div style={{ marginBottom: "20px" }}>
@@ -167,8 +175,9 @@ const SignUp = () => {
 
 const styles = {
   container: {
+    height: "100vh",
     textAlign: "center",
-    margin: "20px",
+    margin: "40px",
     marginBottom: "20px", // フォーム下の余白も減らす
   },
   input: {

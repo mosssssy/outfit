@@ -24,7 +24,7 @@ import FollowList from "./pages/FollowList";
 import FollowerList from "./pages/FollowerList";
 import GoodList from "./pages/GoodList";
 import Settings from "./pages/Settings";
-import MyPageEdit from "./pages/MyPageEdit";
+import UserNameEdit from "./pages/UserNameEdit";
 import EmailReset from "./pages/EmailReset";
 import EmailResetSuccess from "./pages/EmailResetSuccess";
 import DeleteConfirm from "./pages/DeleteConfirm";
@@ -99,8 +99,8 @@ const App = () => {
           <Route path="/good-list" element={<GoodList />} />{" "}
           {/* いいね一覧画面 */}
           <Route path="/settings" element={<Settings />} /> {/* 設定画面 */}
-          <Route path="/my-page-edit" element={<MyPageEdit />} />{" "}
-          {/* マイページ編集画面 */}
+          <Route path="/username-edit" element={<UserNameEdit />} />{" "}
+          {/* ユーザーネーム編集画面 */}
           <Route path="/email-reset" element={<EmailReset />} />{" "}
           {/* メールアドレス再設定画面 */}
           <Route

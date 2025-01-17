@@ -186,6 +186,11 @@ const FashionDetail = () => {
     ));
   };
 
+  const handleUserClick = (e, userId) => {
+    e.preventDefault(); // これで再読み込みを防ぎます
+    navigate(`/user-detail/${userId}`); // 遷移のための処理
+  };
+
   // 作成日時を分まで表示
   const formattedDate = new Date(fashion.timestamp).toLocaleString();
 
@@ -250,9 +255,11 @@ const FashionDetail = () => {
           </li>
         </ul>
         <MarginBoxHeight sizeType="verysmall" />
-        <p>
-          投稿者:{" "}
-          <Link to="/user-detail">{user ? user.username : "不明"} </Link>
+        <p
+          onClick={(e) => handleUserClick(e, fashion.userID)}
+          style={styles.name}
+        >
+          投稿者: {user ? user.username : "不明"}
         </p>
         <p>作成日時: {formattedDate}</p>
       </div>
@@ -333,6 +340,7 @@ const styles = {
     borderRadius: "50%", // 円を丸くする
   },
   errorMessage: { color: "red", fontWeight: "bold" },
+  name: { color: "black", textDecoration: "underline", cursor: "pointer" },
 };
 
 export default FashionDetail;
