@@ -1,3 +1,15 @@
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { getFirestore, doc, setDoc } from "firebase/firestore";
+import { auth } from "../firebase";
+import Button from "../components/Button";
+import BackLink from "../components/BackLink_";
+import ErrorContainer from "../components/ErrorContainer_";
+import logo from "../outfit_logo_black.png"; // PNGの透過画像をインポート
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+
 const SignUp = () => {
   const navigate = useNavigate();
 
@@ -5,6 +17,7 @@ const SignUp = () => {
   const [password, setPassword] = useState("");
   const [username, setUsername] = useState("");
   const [error, setError] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -55,7 +68,7 @@ const SignUp = () => {
   };
 
   return (
-    <div style={{ height: '100vh', textAlign: 'center', backgroundColor: '#ffffff' }}>
+    <div style={styles.container}>
       <BackLink
         onClick={() => {
           navigate("/");
@@ -64,97 +77,107 @@ const SignUp = () => {
       {/* PNG画像を上に配置 */}
       <img src={logo} alt="App Logo" style={styles.logo} />
 
-      <form style={{ maxWidth: '400px', margin: '0 auto', padding: '20px' }} onSubmit={handleSubmit}>
-        <div style={{ marginBottom: '20px' }}>
-          <label style={{ display: 'block', textAlign: 'left', marginBottom: '10px' }}>メールアドレス</label>
+      <form
+        style={{ maxWidth: "400px", margin: "0 auto", padding: "20px" }}
+        onSubmit={handleSubmit}
+      >
+        <div style={{ marginBottom: "20px" }}>
+          <label
+            style={{
+              display: "block",
+              textAlign: "left",
+              marginBottom: "10px",
+            }}
+          >
+            メールアドレス
+          </label>
           <input
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="メールアドレス"
             style={{
-              width: '100%',
-              padding: '12px',
-              border: '2px solid #000',
-              borderRadius: '10px',
+              width: "100%",
+              padding: "12px",
+              border: "2px solid #000",
+              borderRadius: "10px",
             }}
           />
         </div>
-        <div style={{ marginBottom: '20px' }}>
-          <label style={{ display: 'block', textAlign: 'left', marginBottom: '10px' }}>パスワード</label>
+        <div style={{ marginBottom: "20px", position: "relative" }}>
+          <label
+            style={{
+              display: "block",
+              textAlign: "left",
+              marginBottom: "10px",
+            }}
+          >
+            パスワード
+          </label>
           <input
-            type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            type={showPassword ? "text" : "password"}
             placeholder="パスワード (英数字6文字以上)"
             style={{
-              width: '100%',
-              padding: '12px',
-              border: '2px solid #000',
-              borderRadius: '10px',
+              width: "100%",
+              padding: "12px",
+              border: "2px solid #000",
+              borderRadius: "10px",
             }}
-            required
+          />
+          <FontAwesomeIcon
+            icon={showPassword ? faEyeSlash : faEye}
+            onClick={() => setShowPassword(!showPassword)}
+            style={{
+              position: "absolute",
+              right: "-10px", // フォーム右端からの距離
+              top: "70%", // 親要素の高さの中央に配置
+              transform: "translateY(-50%)", // 垂直方向の中央揃え
+              cursor: "pointer",
+              fontSize: "24px",
+              color: "#333",
+            }}
           />
         </div>
-        <div style={{ marginBottom: '20px' }}>
-          <label style={{ display: 'block', textAlign: 'left', marginBottom: '10px' }}>ユーザーネーム</label>
+        <div style={{ marginBottom: "20px" }}>
+          <label
+            style={{
+              display: "block",
+              textAlign: "left",
+              marginBottom: "10px",
+            }}
+          >
+            ユーザーネーム
+          </label>
           <input
             type="text"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
             placeholder="ユーザーネーム（8文字以内）"
             style={{
-              width: '100%',
-              padding: '12px',
-              border: '2px solid #000',
-              borderRadius: '10px',
+              width: "100%",
+              padding: "12px",
+              border: "2px solid #000",
+              borderRadius: "10px",
             }}
             required
           />
         </div>
 
-        <p style={{ color: 'red', marginBottom: '20px' }}>{error}</p>
+        <ErrorContainer error={error}>{error}</ErrorContainer>
 
-        <button
-          type="submit"
-          style={{
-            width: '100%',
-            padding: '15px',
-            backgroundColor: '#000',
-            color: '#fff',
-            border: 'none',
-            borderRadius: '10px',
-            fontSize: '1.2rem',
-          }}
-        >
-          登録する
-        </button>
+        <Button type="submit">登録する</Button>
       </form>
-
-      <div style={{ marginTop: '40px', display: 'flex', justifyContent: 'center' }}>
-        {[...Array(8)].map((_, index) => (
-          <div
-            key={index}
-            style={{
-              width: '50px',
-              height: '50px',
-              backgroundColor: '#333',
-              margin: '5px',
-              borderRadius: '5px',
-            }}
-          >
-            <span style={{ color: '#fff', lineHeight: '50px' }}>♀</span>
-          </div>
-        ))}
-      </div>
     </div>
   );
 };
 
 const styles = {
   container: {
+    height: "100vh",
     textAlign: "center",
-    margin: "20px",
+    margin: "40px",
     marginBottom: "20px", // フォーム下の余白も減らす
   },
   input: {
@@ -166,11 +189,11 @@ const styles = {
     borderRadius: "10px",
     border: "2px solid #000", // 枠線を黒くする
   },
-  
+
   logo: {
-    width: "300px",  // ロゴサイズの調整
+    width: "300px", // ロゴサイズの調整
     height: "auto",
-    marginBottom: "10px",  // ロゴと次の要素の間隔
+    marginBottom: "10px", // ロゴと次の要素の間隔
   },
   formContainer: {
     marginTop: "10px", // フォームの間隔を微調整

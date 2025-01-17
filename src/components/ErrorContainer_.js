@@ -52,9 +52,10 @@ const styles = {
   errorContainer: {
     display: "flex",
     alignItems: "center", // 縦位置を中央に揃える
+    marginBottom: "20px",
   },
   errorMessage: {
-    color: "red",
+    color: "#ee2a7b",
     fontWeight: "bold",
     textAlign: "center", // テキストを中央揃え
   },

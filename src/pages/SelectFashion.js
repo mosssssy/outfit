@@ -182,7 +182,7 @@ const styles = {
   mainContainer: {
     display: "flex",
     flexWrap: "wrap", // 複数の要素が横並びに収まるように
-    padding: "20px",
+    padding: "20px 40px",
   },
   FashionContainer: {
     position: "relative",

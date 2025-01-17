@@ -43,6 +43,15 @@ const Button = ({ onClick, children, styleType = "primary" }) => {
       cursor: "pointer",
       fontWeight: "bold",
     },
+    signup: {
+      width: "50%",
+      padding: "15px",
+      backgroundColor: "#000",
+      color: "#fff",
+      border: "none",
+      borderRadius: "10px",
+      fontSize: "1.2rem",
+    },
     // 他にもボタンのスタイルを追加可能
   };
 

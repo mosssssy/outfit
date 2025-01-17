@@ -7,8 +7,11 @@ const Settings = () => {
     <div style={styles.container}>
       <h1>設定画面</h1>
       <div style={styles.mainContainer}>
-        <button onClick={() => navigate("/my-page-edit")} style={styles.button}>
-          マイページを編集する
+        <button
+          onClick={() => navigate("/username-edit")}
+          style={styles.button}
+        >
+          ユーザーネームを変更する
         </button>
         <button onClick={() => navigate("/email-reset")} style={styles.button}>
           メールアドレスを変更する
@@ -31,7 +34,7 @@ const Settings = () => {
 };
 
 const styles = {
-  container: { padding: "20px" },
+  container: { padding: "40px" },
   mainContainer: {
     display: "flex", // フレックスボックスを有効化
     flexDirection: "column", // 縦方向に並べる

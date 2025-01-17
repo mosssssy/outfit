@@ -7,6 +7,9 @@ import ErrorContainer from "../components/ErrorContainer_";
 import logo from "../outfit_logo_black.png"; // PNGの透過画像をインポート
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+import BackLink from "../components/BackLink_";
+import Button from "../components/Button";
+import MarginBoxHeight from "../components/MarginBox";
 
 function LogIn() {
   const [showPassword, setShowPassword] = useState(false);
@@ -67,14 +70,17 @@ function LogIn() {
         height: "100vh",
         textAlign: "center",
         backgroundColor: "#ffffff",
+        padding: "40px",
       }}
     >
-      {/* ここにロゴが入る */}
       <BackLink
         onClick={() => {
           navigate("/");
         }}
       />
+      {/* PNG画像を上に配置 */}
+      <img src={logo} alt="App Logo" style={styles.logo} />
+
       <form
         style={{ maxWidth: "400px", margin: "0 auto", padding: "20px" }}
         onSubmit={handleSubmit}
@@ -137,51 +143,17 @@ function LogIn() {
             }}
           />
         </div>
-        <p style={{ color: "red", marginBottom: "20px" }}>
-          有効なメールアドレスを入力してください。
-          <br />
-          パスワードは英数字6文字以上で設定してください。
-        </p>
-        <button
-          type="submit"
-          style={{
-            width: "100%",
-            padding: "15px",
-            backgroundColor: "#000",
-            color: "#fff",
-            border: "none",
-            borderRadius: "10px",
-            fontSize: "1.2rem",
-          }}
-        >
-          次へ
-        </button>
+        <div>
+          <Link to="/password-reset-email" style={styles.a}>
+            パスワードが分からない
+          </Link>{" "}
+        </div>
+        <ErrorContainer error={error}>{error}</ErrorContainer>
+        <MarginBoxHeight sizeType="medium" />
+        <Button type="submit" styleType="primary">
+          ログイン
+        </Button>
       </form>
-      <div>
-        <Link to="/password-reset-email" style={styles.a}>
-          パスワードが分からない
-        </Link>{" "}
-      </div>
-      <ErrorContainer error={error}>{error}</ErrorContainer>
-
-      <div
-        style={{ marginTop: "40px", display: "flex", justifyContent: "center" }}
-      >
-        {[...Array(8)].map((_, index) => (
-          <div
-            key={index}
-            style={{
-              width: "50px",
-              height: "50px",
-              backgroundColor: "#333",
-              margin: "5px",
-              borderRadius: "5px",
-            }}
-          >
-            <span style={{ color: "#fff", lineHeight: "50px" }}>♀</span>
-          </div>
-        ))}
-      </div>
     </div>
   );
 }
@@ -190,6 +162,11 @@ const styles = {
   a: {
     color: "blue",
     textDecoration: "underline",
+  },
+  logo: {
+    width: "300px", // ロゴサイズの調整
+    height: "auto",
+    marginBottom: "10px", // ロゴと次の要素の間隔
   },
 };
 

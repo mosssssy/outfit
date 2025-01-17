@@ -21,6 +21,8 @@ const Header = () => {
   const auth = getAuth(); // Firebaseの認証インスタンス
   const [searchQuery, setSearchQuery] = useState(""); // 検索バーの入力値
 
+  const logo = "/assets/whitelogo.png"; // public フォルダ内の画像
+
   const handleSearch = async () => {
     if (searchQuery.trim() === "") return; // 入力が空でない場合のみ検索を実行
     const db = getFirestore();
@@ -36,6 +38,13 @@ const Header = () => {
       ...doc.data(),
     }));
     navigate("/search", { state: { results: searchResults } }); // 検索結果を`/search`に遷移
+  };
+
+  const handleKeyDown = (event) => {
+    if (event.key === "Enter") {
+      // エンターキーが押されたら検索を実行
+      handleSearch();
+    }
   };
 
   // メニューを表示/非表示にする
@@ -79,8 +88,9 @@ const Header = () => {
 
   return (
     <header style={styles.header}>
-      <Link to="/home" style={styles.logo}>
-        <img src={logoImage} alt="OutFit Logo" style={styles.logoImage} />
+      {/* PNG画像を中央に配置 */}
+      <Link to="/home">
+        <img src={logo} alt="App Logo" style={styles.logo} />
       </Link>
       <div style={styles.rightContainer}>
         <input
@@ -89,6 +99,7 @@ const Header = () => {
           style={styles.searchBar}
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
+          onKeyDown={handleKeyDown}
         />
 
         <FaSearch
@@ -112,7 +123,7 @@ const Header = () => {
             <Link onClick={toggleMenu} to="/my-page" style={styles.menuItem}>
               マイページ
             </Link>
-            <Link
+            {/* <Link
               onClick={toggleMenu}
               to="/follow-list"
               style={styles.menuItem}
@@ -125,7 +136,7 @@ const Header = () => {
               style={styles.menuItem}
             >
               フォロワー一覧
-            </Link>
+            </Link> */}
             <Link onClick={toggleMenu} to="/good-list" style={styles.menuItem}>
               いいねしたファッション
             </Link>
@@ -148,23 +159,19 @@ const styles = {
     justifyContent: "space-between",
     alignItems: "center",
     backgroundColor: "#000",
-    padding: "10px 20px",
+    padding: "16px 24px",
     color: "#fff",
   },
   logo: {
-    textDecoration: "none", // リンクの下線を消す
-    color: "#fff", // 必要なら削除
-  },
-  logoImage: {
-    width: "150px", // ロゴ画像の幅を設定
-    height: "auto", // アスペクト比を保持
+    width: "5rem", // 画像の大きさを設定
+    height: "auto", // 高さを自動で調整
   },
   rightContainer: {
     display: "flex",
     alignItems: "center",
     position: "relative", // メニューを右側に絶対位置で配置
   },
-  
+
   searchBar: {
     minWidth: "200px",
     maxWidth: "400px",

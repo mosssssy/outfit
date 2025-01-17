@@ -2,7 +2,9 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import Button from "../components/Button"; // 作成したButtonコンポーネントをインポート
 import logo from "../outfit_logo_black.png"; // PNGの透過画像をインポート
-import hanger from "../hanger.png"; // 添付の画像をインポート
+import MarginBoxHeight from "../components/MarginBox";
+import { width } from "@fortawesome/free-solid-svg-icons/fa0";
+import hanger from "../hanger.png";
 
 const Start = () => {
   const navigate = useNavigate();
@@ -22,7 +24,12 @@ const Start = () => {
       {/* 添付画像を横一列に並べる */}
       <div style={styles.imageRow}>
         {[...Array(10)].map((_, index) => (
-          <img key={index} src={hanger} alt={`Hanger ${index + 1}`} style={styles.hangerImage} />
+          <img
+            key={index}
+            src={hanger}
+            alt={`Hanger ${index + 1}`}
+            style={styles.hangerImage}
+          />
         ))}
       </div>
     </div>
@@ -32,12 +39,23 @@ const Start = () => {
 const styles = {
   container: {
     textAlign: "center",
-    marginTop: "50px",
+    margin: "50px 50px 50px 50px",
   },
   logo: {
-    width: "500px",  // 画像の大きさを設定
-    height: "auto",  // 高さを自動で調整
-    marginBottom: "20px",  // ロゴと次の要素の間隔を調整
+    width: "600px", // 画像の大きさを設定
+    height: "auto", // 高さを自動で調整
+    marginBottom: "20px", // ロゴと次の要素の間隔を調整
+  },
+  hangerRow: {
+    display: "flex",
+    justifyContent: "space-between", // 画像間のスペースを均等配置
+    alignItems: "center",
+    padding: "20px", // 全体の余白
+  },
+  hangerImage: {
+    width: "50px",
+    height: "auto",
+    margin: "0 10px",
   },
   buttonContainer: {
     display: "flex", // フレックスボックスを有効化

@@ -8,6 +8,7 @@ import {
   useNavigate,
   useLocation,
 } from "react-router-dom";
+import "./App.css";
 import Start from "./pages/Start";
 import SignUp from "./pages/SignUp";
 import LogIn from "./pages/LogIn_"; // エラー回避
@@ -23,7 +24,7 @@ import FollowList from "./pages/FollowList";
 import FollowerList from "./pages/FollowerList";
 import GoodList from "./pages/GoodList";
 import Settings from "./pages/Settings";
-import MyPageEdit from "./pages/MyPageEdit";
+import UserNameEdit from "./pages/UserNameEdit";
 import EmailReset from "./pages/EmailReset";
 import EmailResetSuccess from "./pages/EmailResetSuccess";
 import DeleteConfirm from "./pages/DeleteConfirm";
@@ -87,7 +88,7 @@ const App = () => {
             element={<FashionDetail />}
           />{" "}
           {/* ファッション詳細画面 */}
-          <Route path="/user-detail" element={<UserDetail />} />{" "}
+          <Route path="/user-detail/:userId" element={<UserDetail />} />{" "}
           {/* ユーザー詳細画面 */}
           <Route path="/search" element={<Search />} /> {/* 検索結果画面 */}
           <Route path="/my-page" element={<MyPage />} /> {/* マイページ画面 */}
@@ -98,8 +99,8 @@ const App = () => {
           <Route path="/good-list" element={<GoodList />} />{" "}
           {/* いいね一覧画面 */}
           <Route path="/settings" element={<Settings />} /> {/* 設定画面 */}
-          <Route path="/my-page-edit" element={<MyPageEdit />} />{" "}
-          {/* マイページ編集画面 */}
+          <Route path="/username-edit" element={<UserNameEdit />} />{" "}
+          {/* ユーザーネーム編集画面 */}
           <Route path="/email-reset" element={<EmailReset />} />{" "}
           {/* メールアドレス再設定画面 */}
           <Route
