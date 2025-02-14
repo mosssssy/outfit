@@ -35,7 +35,7 @@ function MyPage() {
   const firestore = getFirestore(); // Firestoreインスタンス
   const auth = getAuth();
 
-  const modelFashion = "/assets/model_01.png"; // モデル画像のパス
+  const modelFashion = "/assets/models/model_01.png"; // モデル画像のパス
   const categoriesOrder = ["shoes", "bottoms", "hairs", "tops"]; // カテゴリの順序
 
   // Firebase Authからユーザー情報を取得

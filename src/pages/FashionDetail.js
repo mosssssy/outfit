@@ -24,7 +24,7 @@ const FashionDetail = () => {
   const [userId, setUserId] = useState(null); // ログイン中のユーザーID
   const [toastDisplayed, setToastDisplayed] = useState({}); // トーストの重複防止用
 
-  const modelFashion = "/assets/model_01.png"; // モデル画像のパス
+  const modelFashion = "/assets/models/model_01.png"; // モデル画像のパス
   const categoriesOrder = ["shoes", "bottoms", "hairs", "tops"]; // カテゴリの順序
 
   // Firebase Auth からユーザー情報を取得

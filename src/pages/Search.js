@@ -25,7 +25,7 @@ const Search = () => {
   const [loading, setLoading] = useState(false); // ローディング状態を管理
   const firestore = getFirestore(); // Firestoreインスタンス
 
-  const modelFashion = "/assets/model_01.png"; // モデル画像のパス
+  const modelFashion = "/assets/models/model_01.png"; // モデル画像のパス
   const categoriesOrder = ["shoes", "bottoms", "hairs", "tops"]; // カテゴリの順序
 
   // 最初に20件の投稿を取得する関数
