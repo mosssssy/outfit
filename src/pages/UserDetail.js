@@ -17,6 +17,7 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Button from "../components/Button"; // Buttonを適切なパスからインポート
 import MarginBoxHeight from "../components/MarginBox";
+import model from "../assets/models/model_01.PNG";
 
 function UserDetail() {
   const navigate = useNavigate();
@@ -28,7 +29,7 @@ function UserDetail() {
   const firestore = getFirestore();
   const [toastDisplayed, setToastDisplayed] = useState({}); // トーストの重複防止用
 
-  const modelFashion = "/assets/models/model_01.png"; // モデル画像のパス
+  const modelFashion = model; // モデル画像のパス
   const categoriesOrder = ["shoes", "bottoms", "hairs", "tops"]; // カテゴリの順序
 
   // ユーザー詳細をFirestoreから取得する関数

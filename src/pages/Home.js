@@ -19,6 +19,7 @@ import {
 } from "firebase/firestore";
 import { getAuth } from "firebase/auth"; // Firebase Authenticationをインポート
 import Button from "../components/Button";
+import model from "../assets/models/model_01.PNG";
 
 function Home() {
   const navigate = useNavigate();
@@ -32,7 +33,7 @@ function Home() {
   const [userId, setUserId] = useState(null); // ログイン中のユーザーID
   const [toastDisplayed, setToastDisplayed] = useState({}); // トーストの重複防止用
 
-  const modelFashion = "/public/assets/models/model_01.PNG"; // モデル画像のパス
+  const modelFashion = model; // モデル画像のパス
   const categoriesOrder = ["shoes", "bottoms", "hairs", "tops"]; // カテゴリの順序
 
   // Firebase Authからユーザー情報を取得

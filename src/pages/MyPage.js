@@ -20,6 +20,7 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Button from "../components/Button"; // Buttonを適切なパスからインポート
 import MarginBoxHeight from "../components/MarginBox";
+import model from "../assets/models/model_01.PNG";
 
 function MyPage() {
   const navigate = useNavigate();
@@ -35,7 +36,7 @@ function MyPage() {
   const firestore = getFirestore(); // Firestoreインスタンス
   const auth = getAuth();
 
-  const modelFashion = "/assets/models/model_01.png"; // モデル画像のパス
+  const modelFashion = model; // モデル画像のパス
   const categoriesOrder = ["shoes", "bottoms", "hairs", "tops"]; // カテゴリの順序
 
   // Firebase Authからユーザー情報を取得

@@ -6,6 +6,7 @@ import Button from "../components/Button";
 import BackLink from "../components/BackLink_";
 import MarginBoxHeight from "../components/MarginBox";
 import ErrorContainer from "../components/ErrorContainer_";
+import model from "../assets/models/model_01.PNG";
 
 const categoriesOrder = ["shoes", "bottoms", "hairs", "tops"];
 
@@ -15,7 +16,7 @@ function Post() {
   const { selectedColors, processedFashions, selectedFashions } =
     location.state || {};
 
-  const modelFashion = "/assets/models/model_01.png";
+  const modelFashion = model;
 
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");

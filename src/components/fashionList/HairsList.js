@@ -1,28 +1,34 @@
+import hairs01 from "../../assets/hairs/hairs_01.PNG";
+import hairs02 from "../../assets/hairs/hairs_02.PNG";
+import hairs03 from "../../assets/hairs/hairs_03.PNG";
+import hairs04 from "../../assets/hairs/hairs_04.PNG";
+import hairs05 from "../../assets/hairs/hairs_05.PNG";
+
 // hairsのリスト
 const hairs = [
   {
     id: 1,
-    src: "/assets/hairs/hairs_01.png",
+    src: hairs01,
     alt: "hairs 1",
   },
   {
     id: 2,
-    src: "/assets/hairs/hairs_02.png",
+    src: hairs02,
     alt: "hairs 2",
   },
   {
     id: 3,
-    src: "/assets/hairs/hairs_03.png",
+    src: hairs03,
     alt: "hairs 3",
   },
   {
     id: 4,
-    src: "/assets/hairs/hairs_04.png",
+    src: hairs04,
     alt: "hairs 4",
   },
   {
     id: 5,
-    src: "/assets/hairs/hairs_05.png",
+    src: hairs05,
     alt: "hairs 5",
   },
 ];

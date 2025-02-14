@@ -14,6 +14,7 @@ import {
 import { getAuth } from "firebase/auth";
 import "react-toastify/dist/ReactToastify.css";
 import { toast, ToastContainer } from "react-toastify";
+import model from "../assets/models/model_01.PNG";
 
 function GoodList() {
   const navigate = useNavigate();
@@ -24,7 +25,7 @@ function GoodList() {
   const [users, setUsers] = useState({});
   const [loading, setLoading] = useState(false); // ローディング状態を管理
   const firestore = getFirestore();
-  const modelFashion = "/assets/models/model_01.png";
+  const modelFashion = model;
   const categoriesOrder = ["shoes", "bottoms", "hairs", "tops"];
 
   const getCurrentUserId = () => {

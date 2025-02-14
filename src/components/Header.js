@@ -11,7 +11,7 @@ import {
   query,
   where,
 } from "firebase/firestore"; // Firestoreインポート
-import logoImage from "../outfit_logo_white.png"; // ロゴ画像をインポート
+import logoImgae from "../assets/whitelogo.png";
 
 const Header = () => {
   const navigate = useNavigate();
@@ -21,7 +21,7 @@ const Header = () => {
   const auth = getAuth(); // Firebaseの認証インスタンス
   const [searchQuery, setSearchQuery] = useState(""); // 検索バーの入力値
 
-  const logo = "/assets/whitelogo.png"; // public フォルダ内の画像
+  const logo = logoImgae;
 
   const handleSearch = async () => {
     if (searchQuery.trim() === "") return; // 入力が空でない場合のみ検索を実行

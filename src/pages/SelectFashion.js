@@ -8,6 +8,7 @@ import Button from "../components/Button";
 import ErrorContainer from "../components/ErrorContainer_";
 import MarginBoxHeight from "../components/MarginBox";
 import NextLink from "../components/NextLink";
+import model from "../assets/models/model_01.PNG";
 
 // 初期選択ファッション
 const initialFashions = {
@@ -47,7 +48,7 @@ function FashionSelector() {
   const [error, setError] = useState("");
 
   // モデル
-  const modelFashion = "/assets/models/model_01.png";
+  const modelFashion = model;
 
   // 選択されたタブに基づいて画像リストを返す
   const getTabContent = () => {

@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import Button from "../components/Button";
 import BackLinkandNextLink from "../components/BackLinkandNextLink";
+import model from "../assets/models/model_01.PNG";
 
 // カラー変換のヘルパー関数
 const rgbToHex = (r, g, b) =>
@@ -23,7 +24,7 @@ const ColorSelector = () => {
   const location = useLocation();
   const { selectedFashions } = location.state || {}; // 受け取ったFashion
 
-  const modelFashion = "/assets/models/model_01.png"; // モデル画像
+  const modelFashion = model; // モデル画像
   const canvasRef = useRef(null);
 
   // 初期カラー設定
