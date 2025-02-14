@@ -1,28 +1,34 @@
+import bottoms01 from "../assets/bottoms/bottoms_01.png";
+import bottoms02 from "../assets/bottoms/bottoms_02.png";
+import bottoms03 from "../assets/bottoms/bottoms_03.png";
+import bottoms04 from "../assets/bottoms/bottoms_04.png";
+import bottoms05 from "../assets/bottoms/bottoms_05.png";
+
 // bottomsのリスト
 const bottoms = [
   {
     id: 1,
-    src: "/assets/bottoms/bottoms_01.png",
+    src: bottoms01,
     alt: "Bottoms 1",
   },
   {
     id: 2,
-    src: "/assets/bottoms/bottoms_02.png",
+    src: bottoms02,
     alt: "Bottoms 2",
   },
   {
     id: 3,
-    src: "/assets/bottoms/bottoms_03.png",
+    src: bottoms03,
     alt: "Bottoms 3",
   },
   {
     id: 4,
-    src: "/assets/bottoms/bottoms_04.png",
+    src: bottoms04,
     alt: "Bottoms 4",
   },
   {
     id: 5,
-    src: "/assets/bottoms/bottoms_05.png",
+    src: bottoms05,
     alt: "Bottoms 5",
   },
 ];
