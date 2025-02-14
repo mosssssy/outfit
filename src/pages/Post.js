@@ -15,7 +15,7 @@ function Post() {
   const { selectedColors, processedFashions, selectedFashions } =
     location.state || {};
 
-  const modelFashion = "/assets/model_01.png";
+  const modelFashion = "/assets/models/model_01.png";
 
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");

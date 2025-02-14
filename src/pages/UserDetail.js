@@ -28,7 +28,7 @@ function UserDetail() {
   const firestore = getFirestore();
   const [toastDisplayed, setToastDisplayed] = useState({}); // トーストの重複防止用
 
-  const modelFashion = "/assets/model_01.png"; // モデル画像のパス
+  const modelFashion = "/assets/models/model_01.png"; // モデル画像のパス
   const categoriesOrder = ["shoes", "bottoms", "hairs", "tops"]; // カテゴリの順序
 
   // ユーザー詳細をFirestoreから取得する関数

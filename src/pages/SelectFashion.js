@@ -47,7 +47,7 @@ function FashionSelector() {
   const [error, setError] = useState("");
 
   // モデル
-  const modelFashion = "/assets/model_01.png";
+  const modelFashion = "/assets/models/model_01.png";
 
   // 選択されたタブに基づいて画像リストを返す
   const getTabContent = () => {

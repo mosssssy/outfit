@@ -23,7 +23,7 @@ const ColorSelector = () => {
   const location = useLocation();
   const { selectedFashions } = location.state || {}; // 受け取ったFashion
 
-  const modelFashion = "/assets/model_01.png"; // モデル画像
+  const modelFashion = "/assets/models/model_01.png"; // モデル画像
   const canvasRef = useRef(null);
 
   // 初期カラー設定
